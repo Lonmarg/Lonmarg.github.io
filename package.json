@@ -1,22 +1,22 @@
 {
-  "name": "hello-world",
+  "name": "ArmyListTest",
   "version": "1.0.0",
-  "description": "Hello world with express and node.js",
+  "description": "ArmyListTest",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "debug": "./bin/debug",
-    "destroy": "node ./bin/drop",
-    "seed": "node ./bin/seed",
-    "test": "SILENT=true ./node_modules/mocha/bin/mocha"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "author": "OSU",
+  "author": "Phillip Wellheuser",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.2",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
-    "mysql": "^2.8.0"
+    "mysql": "^2.8.0",
+    "request": "^2.65.0",
+    "nodemon": "^2.0.1"
   }
 }
