@@ -21,11 +21,6 @@ var pool = mysql.createPool({
 //set port to use
 app.set('port', 4361);
 
-//import logger
-var logger = require('./middleware/logger');
-//init logger middleware
-app.use(logger);
-
 //require path to navigate folders
 var path = require('path');
 //Set Static folder
