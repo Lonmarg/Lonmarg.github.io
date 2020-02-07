@@ -36,24 +36,25 @@ app.use(bodyParser.json());
 app.get('/', function(req, res, next) {
     console.log("I decided to run get/");
     var context = {};
-    context.pgTitle = "";
-    pool.query('SELECT * FROM workouts', function(err, rows, fields) {
-        if (err) {
-            next(err + "/showall");
-            return;
-        }
-        context.results = JSON.stringify(rows);
-        context.table = rows;
-    });
-    pool.query("SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema='cs290_wellheup' AND table_name='workouts'", function(err, columns, fields) {
-        if (err) {
-            next(err);
-            return;
-        }
-        context.columns = columns;
-        context.columns.shift();
-        res.render('home', context);
-    });
+    context.pgTitle = "IT LIVES!";
+    // pool.query('SELECT * FROM workouts', function(err, rows, fields) {
+    //     if (err) {
+    //         next(err + "/showall");
+    //         return;
+    //     }
+    //     context.results = JSON.stringify(rows);
+    //     context.table = rows;
+    // });
+    // pool.query("SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema='cs290_wellheup' AND table_name='workouts'", function(err, columns, fields) {
+    //     if (err) {
+    //         next(err);
+    //         return;
+    //     }
+    //     context.columns = columns;
+    //     context.columns.shift();
+    //     res.render('home', context);
+    // });
+    res.render('home', context);
 });
 
 /*[DOESN'T WORK FOR SOME REASON?]
