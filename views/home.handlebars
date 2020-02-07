@@ -1,0 +1,125 @@
+<h1 class="text-center mb-3">My Workouts</h1>
+
+<h4>Add New Exercise: {{planSubtitle}}</h4>
+<table class="table table-hover table-dark table-striped">
+    <tbody>
+	<form action ="/" method="post" class= "mb-4">
+		<tr>
+			<th scope="row">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" name="name" class="form-control" value="Name">
+				</div>
+			</th>
+			<td>
+				<div class="form-group">
+					<label for="reps">Reps</label>
+					<input type="int" name="reps" class="form-control" value="0">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="weight">Weight</label>
+					<input type="int" name="weight" class="form-control" value="00">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="date">Date</label>
+					<input type="date" name="date" class="form-control" value="2020-01-01">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="lbs">Lbs?</label>
+					<input type="int" name="lbs" class="form-control" value="lbs 0/1">
+				</div>
+			</td>
+			<td>
+				<label for="Add Exercise"></label>
+				<input type="submit" name="Add Exercise" value="Add Exercise" class="btn btn-primary btn-block">
+			</td>
+		</tr>
+	</form>
+  	</tbody>
+</table>
+
+<h4>Current Workout Plan:</h4>
+<table class="table table-hover table-dark table-striped">
+  <thead class="text-uppercase">
+    <tr>
+    	{{#each columns}}
+			<th scope="col">{{this.COLUMN_NAME}}</li>
+		{{/each}}
+    </tr>
+  </thead>
+  <tbody>
+  	{{#each table}}
+  		<tr>
+			<td hidden>{{this.id}}</td>
+  			<th scope="row">{{this.name}}</th>
+  			<td>{{this.reps}}</td>
+  			<td>{{this.weight}}</td>
+  			<td>{{this.date}}</td>
+  			<td>{{this.lbs}}</td>
+			<td>
+				<form action ="/" method="post" class= "mb-4">
+				<input hidden type="int" name="reps" class="form-control" value="{{this.id}}">
+				<input type="submit" name="Edit Exercise" value="Edit Exercise" class="btn btn-primary btn-block">
+				</form>
+			</td>
+			<td>
+				<form action ="/" method="post" class= "mb-4">
+				<input hidden type="int" name="reps" class="form-control" value="{{this.id}}">
+				<input type="submit" name="Delete Exercise" value="Delete Exercise" class="btn btn-primary btn-block">
+				</form>
+			</td>
+  		</tr>
+	{{/each}}
+	<form action ="/" method="post" class= "mb-4">
+		<tr>
+			<th scope="row">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" name="name" class="form-control" value="Name">
+				</div>
+			</th>
+			<td>
+				<div class="form-group">
+					<label for="reps">Reps</label>
+					<input type="int" name="reps" class="form-control" value="0">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="weight">Weight</label>
+					<input type="int" name="weight" class="form-control" value="00">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="date">Date</label>
+					<input type="date" name="date" class="form-control" value="2020-01-01">
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<label for="lbs">Lbs?</label>
+					<input type="int" name="lbs" class="form-control" value="lbs 0/1">
+				</div>
+			</td>
+			<td colspan="2">
+				<label for="Add Exercise"></label>
+				<input type="submit" name="Add Exercise" value="Add Exercise" class="btn btn-primary btn-block">
+			</td>
+		</tr>
+	</form>
+  </tbody>
+</table>
+
+<form action ="/" method="post" class= "mb-4"></form>
+	<input type="button" name="Reset Table" value="Reset Table" class="btn btn-primary btn-block">
+</form>
+	
+	
+	
