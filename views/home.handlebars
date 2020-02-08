@@ -10,47 +10,49 @@
 			<form action ="/" method="post" class= "mb-4">
 				<div class = "d-flex flex-row">
 					<div class="btn-group p-2">
-						<input type="button" name="+List" value="+" class="btn btn-primary btn-block">
-						<input type="button" name="-List" value="-" class="btn btn-primary btn-block">
+						<input type="button" name="+List" value="+" class="btn">
+						<input type="button" name="-List" value="-" class="btn">
 					</div>
 					<div class="form-group p-2">
-						{{!-- <label for="name">Name</label> --}}
-						<input type="text" name="armyName" class="form-control" value="Army1"> {{!--this can be updated with {{}} to update w/ each new one--}}
+						<input type="text" name="armyName" class="form-control" value="Army1"> {{!--army can be updated with {{}} to update w/ each new one--}}
 					</div>
 				</div>
 			</form>
 			<ul>
 				{{!-- SQUAD FORM --}}
 				<form action ="/" method="post" class= "mb-4">
-					<input type="button" name="+" value="+Squad" class="btn btn-primary btn-block">
-					<input type="button" name="-" value="-Squad" class="btn btn-primary btn-block">
-					<div class="form-group">
-						{{!-- <label for="name">Name</label> --}}
-						<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--this can be updated with {{}} to update w/ each new one--}}
-						{{!-- ADD JUMPPACK RADIO BUTTON HERE --}}
+					<div class = "d-flex flex-row">
+						<div class="btn-group p-2">
+							<input type="button" name="+Squad" value="+" class="btn">
+							<input type="button" name="-Squad" value="-" class="btn">
+						</div>
+						<div class="form-group p-2">
+							<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--squad can be updated with {{}} to update w/ each new one--}}
+							<button type="button" class="btn active">JumpPacks Active</button>
+						</div>
 					</div>
 				</form>
 				<ul>
 					{{!-- SERGEANT --}}
-					SEARGENT
-					MARINES
+					<div>SEARGENT</div>
+						<ul>Sergeant stuff...</ul>
+					<div>MARINES</div>
 					<table class="table table-hover table-dark table-striped">
 						<tbody>
 							<tr>
 								<th scope = "row">ID</th>
 								<th scope = "row">Equipment 1</th>
 								<th scope = "row">Equipment 2</th>
-								<th scope = "row">Point Cost: x</th>
+								<th scope = "row">Marine Total Cost</th>
 							</tr>
 					{{!-- MARINES --}}
 							<tr>
 								<form action ="/" method="post" class= "mb-4">
 									<div class="form-group">
 										<td>1</td>
-										<td><input type="button" name="" value="bolter" class="btn btn-primary btn-block"></td>
-										<td><input type="button" name="-" value="swrd" class="btn btn-primary btn-block"></td>
+										<td><input type="button" name="" value="bolter" class="btn"></td>
+										<td><input type="button" name="-" value="swrd" class="btn"></td>
 										<td>x</td>
-										<input type="text" name="garb" class="form-control" value="garb"> {{!--this can be updated with {{}} to update w/ each new one--}}
 									</div>
 								</form>
 							</tr>
@@ -58,10 +60,9 @@
 								<form action ="/" method="post" class= "mb-4">
 									<div class="form-group">
 										<td>2</td>
-										<td><input type="button" name="" value="bolter" class="btn btn-primary btn-block"></td>
-										<td><input type="button" name="-" value="swrd" class="btn btn-primary btn-block"></td>
+										<td><input type="button" name="" value="bolter" class="btn"></td>
+										<td><input type="button" name="-" value="swrd" class="btn"></td>
 										<td>x</td>
-										<input type="text" name="garb" class="form-control" value="garb"> {{!--this can be updated with {{}} to update w/ each new one--}}
 									</div>
 								</form>
 							</tr>
@@ -72,7 +73,7 @@
 		</ul>
 </table>
 
-<h4>Current Workout Plan:</h4>
+<div class = "invisible">
 <table class="table table-hover table-dark table-striped">
   <thead class="text-uppercase">
     <tr>
@@ -148,6 +149,6 @@
 <form action ="/" method="post" class= "mb-4"></form>
 	<input type="button" name="Reset Table" value="Reset Table" class="btn btn-primary btn-block">
 </form>
-	
+</div>
 	
 	
