@@ -1,47 +1,71 @@
 <h1 class="text-center mb-3">My Workouts</h1>
 
-<h4>Add New Exercise: {{planSubtitle}}</h4>
-<table class="table table-hover table-dark table-striped">
-    <tbody>
-	<form action ="/" method="post" class= "mb-4">
-		<tr>
-			<th scope="row">
+<h4>My Army List: {{planSubtitle}}</h4>
+
+		<ul>
+			{{!-- <form action ="/" method="post" class= "mb-4"></form>
+				<input type="button" name="+" value="+List" class="btn btn-primary btn-block">
+			</form> --}}
+			{{!-- ARMY LIST FORM --}}
+			<form action ="/" method="post" class= "mb-4">
+				<input type="button" name="+" value="+List" class="btn btn-primary btn-block">
+				<input type="button" name="-" value="-List" class="btn btn-primary btn-block">
 				<div class="form-group">
-					<label for="name">Name</label>
-					<input type="text" name="name" class="form-control" value="Name">
+					{{!-- <label for="name">Name</label> --}}
+					<input type="text" name="armyName" class="form-control" value="Army1"> {{!--this can be updated with {{}} to update w/ each new one--}}
 				</div>
-			</th>
-			<td>
-				<div class="form-group">
-					<label for="reps">Reps</label>
-					<input type="int" name="reps" class="form-control" value="0">
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-					<label for="weight">Weight</label>
-					<input type="int" name="weight" class="form-control" value="00">
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-					<label for="date">Date</label>
-					<input type="date" name="date" class="form-control" value="2020-01-01">
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-					<label for="lbs">Lbs?</label>
-					<input type="int" name="lbs" class="form-control" value="lbs 0/1">
-				</div>
-			</td>
-			<td>
-				<label for="Add Exercise"></label>
-				<input type="submit" name="Add Exercise" value="Add Exercise" class="btn btn-primary btn-block">
-			</td>
-		</tr>
-	</form>
-  	</tbody>
+			</form>
+			<ul>
+				{{!-- SQUAD FORM --}}
+				<form action ="/" method="post" class= "mb-4">
+					<input type="button" name="+" value="+Squad" class="btn btn-primary btn-block">
+					<input type="button" name="-" value="-Squad" class="btn btn-primary btn-block">
+					<div class="form-group">
+						{{!-- <label for="name">Name</label> --}}
+						<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--this can be updated with {{}} to update w/ each new one--}}
+						{{!-- ADD JUMPPACK RADIO BUTTON HERE --}}
+					</div>
+				</form>
+				<ul>
+					{{!-- SERGEANT --}}
+					SEARGENT
+					MARINES
+					<table class="table table-hover table-dark table-striped">
+						<tbody>
+							<tr>
+								<th scope = "row">ID</th>
+								<th scope = "row">Equipment 1</th>
+								<th scope = "row">Equipment 2</th>
+								<th scope = "row">Point Cost: x</th>
+							</tr>
+					{{!-- MARINES --}}
+							<tr>
+								<form action ="/" method="post" class= "mb-4">
+									<div class="form-group">
+										<td>1</td>
+										<td><input type="button" name="" value="bolter" class="btn btn-primary btn-block"></td>
+										<td><input type="button" name="-" value="swrd" class="btn btn-primary btn-block"></td>
+										<td>x</td>
+										<input type="text" name="garb" class="form-control" value="garb"> {{!--this can be updated with {{}} to update w/ each new one--}}
+									</div>
+								</form>
+							</tr>
+							<tr>
+								<form action ="/" method="post" class= "mb-4">
+									<div class="form-group">
+										<td>2</td>
+										<td><input type="button" name="" value="bolter" class="btn btn-primary btn-block"></td>
+										<td><input type="button" name="-" value="swrd" class="btn btn-primary btn-block"></td>
+										<td>x</td>
+										<input type="text" name="garb" class="form-control" value="garb"> {{!--this can be updated with {{}} to update w/ each new one--}}
+									</div>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+				</ul>
+			</ul>
+		</ul>
 </table>
 
 <h4>Current Workout Plan:</h4>
