@@ -1,21 +1,20 @@
 <h1 class="text-center mb-3">My Workouts</h1>
 
-<h4>My Army List: {{planSubtitle}}</h4>
+<h4>My Army Lists: {{planSubtitle}}</h4>
 
 		<ul>
-			{{!-- <form action ="/" method="post" class= "mb-4"></form>
-				<input type="button" name="+" value="+List" class="btn btn-primary btn-block">
-			</form> --}}
 			{{!-- ARMY LIST FORM --}}
 			<form action ="/" method="post" class= "mb-4">
 				<div class = "d-flex flex-row">
 					<div class="btn-group p-2">
-						<input type="button" name="+List" value="+" class="btn">
-						<input type="button" name="-List" value="-" class="btn">
+						<input type="button" name="+List" value="+" class="btn btn-primary">
+						<input type="button" name="-List" value="-" class="btn btn-primary">
 					</div>
 					<div class="form-group p-2">
 						<input type="text" name="armyName" class="form-control" value="Army1"> {{!--army can be updated with {{}} to update w/ each new one--}}
 					</div>
+					<div class = "p-2>">Number of Squads: x</div>
+					<div class = "p-2>">Army Total Point Cost: x</div>
 				</div>
 			</form>
 			<ul>
@@ -23,20 +22,28 @@
 				<form action ="/" method="post" class= "mb-4">
 					<div class = "d-flex flex-row">
 						<div class="btn-group p-2">
-							<input type="button" name="+Squad" value="+" class="btn">
-							<input type="button" name="-Squad" value="-" class="btn">
+							<input type="button" name="+Squad" value="+" class="btn btn-primary">
+							<input type="button" name="-Squad" value="-" class="btn btn-primary">
 						</div>
 						<div class="form-group p-2">
 							<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--squad can be updated with {{}} to update w/ each new one--}}
 						</div>
-						<div class="form-group p-2">
-							<button type="button" class="btn active">JumpPacks Active</button>
+						<div class = "p-2"> Members: x/y</div>
+						<div class = "p-2"> Total Squad Point Cost: x</div>
+						<div class="btn-group p-2">
+							<button type="button" class="btn btn-primary active">JumpPacks Active</button>
 						</div>
 					</div>
 				</form>
 				<ul>
 					{{!-- SERGEANT --}}
-					<div>SEARGENT</div>
+					<div class = "d-flex flex-row">
+						<div class = "p-2">SEARGENT</div>
+						<div class = "p-2">ID: x</div>
+						<div class = "p-2">MAYBE WE SHOULD DO ANOTHER TABLE HERE LIKE FOR MARINES?</div>
+					</div>
+					
+					
 						<ul>Sergeant stuff...</ul>
 					<div>MARINES</div>
 					<table class="table table-hover table-dark table-striped">
@@ -45,15 +52,15 @@
 								<th scope = "row">ID</th>
 								<th scope = "row">Equipment 1</th>
 								<th scope = "row">Equipment 2</th>
-								<th scope = "row">Marine Total Cost</th>
+								<th scope = "row">Point Cost</th>
 							</tr>
 					{{!-- MARINES --}}
 							<tr>
 								<form action ="/" method="post" class= "mb-4">
 									<div class="form-group">
 										<td>1</td>
-										<td><input type="button" name="" value="bolter" class="btn"></td>
-										<td><input type="button" name="-" value="swrd" class="btn"></td>
+										<td><input type="button" name="" value="bolter" class="btn btn-primary"></td>
+										<td><input type="button" name="-" value="swrd" class="btn btn-primary"></td>
 										<td>x</td>
 									</div>
 								</form>
@@ -62,8 +69,8 @@
 								<form action ="/" method="post" class= "mb-4">
 									<div class="form-group">
 										<td>2</td>
-										<td><input type="button" name="" value="bolter" class="btn"></td>
-										<td><input type="button" name="-" value="swrd" class="btn"></td>
+										<td><input type="button" name="" value="bolter" class="btn btn-primary"></td>
+										<td><input type="button" name="-" value="swrd" class="btn btn-primary"></td>
 										<td>x</td>
 									</div>
 								</form>
