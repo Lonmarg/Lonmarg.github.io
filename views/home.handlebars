@@ -22,11 +22,15 @@
 				{{!-- SQUAD FORM --}}
 				<form action ="/" method="post" class= "mb-4">
 					<div class = "d-flex flex-row">
-						<div class="form-group">
-							<input type="button" name="+Squad" value="+" class="btn p-2">
-							<input type="button" name="-Squad" value="-" class="btn p-2">
-							<input type="text" name="squadName" class="form-control p-2" value="Squad1"> {{!--squad can be updated with {{}} to update w/ each new one--}}
-							<button type="button" class="btn active p-2">JumpPacks Active</button>
+						<div class="btn-group p-2">
+							<input type="button" name="+Squad" value="+" class="btn">
+							<input type="button" name="-Squad" value="-" class="btn">
+						</div>
+						<div class="form-group p-2">
+							<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--squad can be updated with {{}} to update w/ each new one--}}
+						</div>
+						<div class="form-group p-2">
+							<button type="button" class="btn active">JumpPacks Active</button>
 						</div>
 					</div>
 				</form>
