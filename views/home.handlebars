@@ -12,8 +12,8 @@
 					<div class="form-group p-2">
 						<input type="text" name="armyName" class="form-control" value="Army1"> {{!--army can be updated with {{}} to update w/ each new one--}}
 					</div>
-					<div class = "p-2>">Number of Squads: x</div>
-					<div class = "p-2>">Army Total Point Cost: x</div>
+					<div class = "p-2>">Number of Squads: x </div>
+					<div class = "p-2>">Army Total Point Cost: x </div>
 				</div>
 			</form>
 			<ul>
@@ -35,14 +35,53 @@
 					</div>
 				</form>
 				<ul>
-					{{!-- SERGEANT --}}
 					<div class = "d-flex flex-row">
-						<div class = "p-2">SEARGENT</div>
+						<div class = "p-2">SERGEANT</div>
 						<div class = "p-2">ID: x</div>
 						<div class = "p-2">MAYBE WE SHOULD DO ANOTHER TABLE HERE LIKE FOR MARINES?</div>
 						<ul>Sergeant stuff...</ul>
 					</div>
-					<div>MARINES</div>
+					<table class="table table-hover table-dark table-striped">
+						<tbody>
+							<tr>
+								<th scope = "row">ID</th>
+								<th scope = "row">Equipment 1</th>
+								<th scope = "row">Equipment 2</th>
+								<th scope = "row">Point Cost</th>
+							</tr>
+					{{!-- SERGEANT --}}
+							<tr>
+								<form action ="/" method="post" class= "mb-4">
+									<div class="form-group">
+										<td>1</td>
+										<td>
+											<div class = "dropdown">
+												<button type="button" name="weapon1" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Weapon 1</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" href="#">sword</a>
+													<a class="dropdown-item" href="#">bolter</a>
+													<a class="dropdown-item" href="#">other</a>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class = "dropdown">
+												<button type="button" name="weapon2" value="bolter" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Weapon 2</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" href="#">sword</a>
+													<a class="dropdown-item" href="#">bolter</a>
+													<a class="dropdown-item" href="#">other</a>
+												</div>
+											</div>
+										</td>
+										<td>x</td>
+									</div>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class = "d-flex flex-row">MARINES</div>
 					<table class="table table-hover table-dark table-striped">
 						<tbody>
 							<tr>
@@ -80,7 +119,6 @@
 									</div>
 								</form>
 							</tr>
-							
 						</tbody>
 					</table>
 				</ul>
@@ -88,6 +126,7 @@
 		</ul>
 </table>
 
+{{!-- reference code below this point --}}
 <div class = "invisible">
 <table class="table table-hover table-dark table-striped">
   <thead class="text-uppercase">
