@@ -12,8 +12,8 @@
 					<div class="form-group p-2">
 						<input type="text" name="armyName" class="form-control" value="Army1"> {{!--army can be updated with {{}} to update w/ each new one--}}
 					</div>
-					<div class = "p-2>">Number of Squads: x</div>
-					<div class = "p-2>">Army Total Point Cost: x</div>
+					<div class = "p-2>"> Number of Squads: x </div>
+					<div class = "p-2>"> Army Total Point Cost: x </div>
 				</div>
 			</form>
 			<ul>
@@ -27,31 +27,29 @@
 						<div class="form-group p-2">
 							<input type="text" name="squadName" class="form-control" value="Squad1"> {{!--squad can be updated with {{}} to update w/ each new one--}}
 						</div>
-						<div class = "p-2"> Members: x/y</div>
-						<div class = "p-2"> Total Squad Point Cost: x</div>
+						<div class = "p-2"> Members: x/y </div>
+						<div class = "p-2"> Total Squad Point Cost: x </div>
 						<div class="btn-group p-2">
 							<button type="button" class="btn btn-primary active">JumpPacks Active</button>
 						</div>
 					</div>
 				</form>
 				<ul>
-					{{!-- SERGEANT --}}
+					{{!-- SERGEANT SECTION --}}
 					<div class = "d-flex flex-row">
-						<div class = "p-2">SEARGENT</div>
-						<div class = "p-2">ID: x</div>
-						<div class = "p-2">MAYBE WE SHOULD DO ANOTHER TABLE HERE LIKE FOR MARINES?</div>
-						<ul>Sergeant stuff...</ul>
+						<div class = "p-2"><h5>Sergeant</h5> </div>
 					</div>
-					<div>MARINES</div>
+					{{!-- SERGEANT EQIPMENT TABLE --}}
 					<table class="table table-hover table-dark table-striped">
+						<h6>Sergeant's Equipment</h6>
 						<tbody>
 							<tr>
 								<th scope = "row">ID</th>
-								<th scope = "row">Equipment 1</th>
-								<th scope = "row">Equipment 2</th>
-								<th scope = "row">Point Cost</th>
+								<th scope = "row">Equipment 1 </th>
+								<th scope = "row">Equipment 2 </th>
+								<th scope = "row">Point Cost </th>
 							</tr>
-					{{!-- MARINES --}}
+					{{!-- SERGEANT EQUIPMENT TABLE CONTENT --}}
 							<tr>
 								<form action ="/" method="post" class= "mb-4">
 									<div class="form-group">
@@ -80,7 +78,101 @@
 									</div>
 								</form>
 							</tr>
-							
+						</tbody>
+					</table>
+					{{!-- SERGEANT SPECIAL EQUIPMENT TABLE --}}
+					<table class="table table-hover table-dark table-striped">
+						<h6>Sergeant's Special Equipment</h6>
+						<tbody>
+							<tr>
+								<th scope = "row">Add/Remove </th>
+								<th scope = "row">ID </th>
+								<th scope = "row">Special Equipment </th>
+								<th scope = "row">Point Cost </th>
+							</tr>
+					{{!-- SPECIAL EQUIPMENT CONTENT--}}
+							<tr>
+								<form action ="/" method="post" class= "mb-4">
+									<div class="form-group">
+										<td>
+											<form action ="/" method="post" class= "mb-4">
+												<div class = "d-flex flex-row">
+													<div class="btn-group p-2">
+														<input type="button" name="+SpecEquip" value="+" class="btn btn-primary">
+														<input type="button" name="-SpecEquip" value="-" class="btn btn-primary">
+													</div>
+												</div>
+											</form>
+										</td>
+										<td>1</td>
+										<td>
+											<div class = "dropdown">
+												<button type="button" name="weapon1" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Special Equipment</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" href="#">special sword</a>
+													<a class="dropdown-item" href="#">special bolter</a>
+													<a class="dropdown-item" href="#">special other</a>
+												</div>
+											</div>
+										</td>
+										<td>x</td>
+									</div>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+					{{!-- Space Marines SECTION --}}
+					<div class = "d-flex flex-row"><h2>Space Marines</h2></div>
+					{{!-- Space Marines TABLE --}}
+					<table class="table table-hover table-dark table-striped">
+						<h5>Space Marines in Squad</h5>
+						<tbody>
+							<tr>
+								<th scope = "row">Add/Remove </th>
+								<th scope = "row">ID </th>
+								<th scope = "row">Equipment 1 </th>
+								<th scope = "row">Equipment 2 </th>
+								<th scope = "row">Point Cost </th>
+							</tr>
+					{{!-- Space Marines TABLE CONTENT --}}
+							<tr>
+								<form action ="/" method="post" class= "mb-4">
+									<div class="form-group">
+										<td>
+											<form action ="/" method="post" class= "mb-4">
+												<div class = "d-flex flex-row">
+													<div class="btn-group p-2">
+														<input type="button" name="+Squad" value="+" class="btn btn-primary">
+														<input type="button" name="-Squad" value="-" class="btn btn-primary">
+													</div>
+												</div>
+											</form>
+										</td>
+										<td>1</td>
+										<td>
+											<div class = "dropdown">
+												<button type="button" name="weapon1" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Weapon 1</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" href="#">sword</a>
+													<a class="dropdown-item" href="#">bolter</a>
+													<a class="dropdown-item" href="#">other</a>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class = "dropdown">
+												<button type="button" name="weapon2" value="bolter" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Weapon 2</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" href="#">sword</a>
+													<a class="dropdown-item" href="#">bolter</a>
+													<a class="dropdown-item" href="#">other</a>
+												</div>
+											</div>
+										</td>
+										<td>x</td>
+									</div>
+								</form>
+							</tr>
 						</tbody>
 					</table>
 				</ul>
@@ -88,6 +180,7 @@
 		</ul>
 </table>
 
+{{!-- reference code below this point --}}
 <div class = "invisible">
 <table class="table table-hover table-dark table-striped">
   <thead class="text-uppercase">
