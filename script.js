@@ -220,8 +220,8 @@ app.post('/', (req, res, next) => {
     //     context.columns.shift();
     //     res.render('home', context);
     // });
-    //setTimeout(function(){ res.render('home', context); }, 3000);
-    //res.render('home', context);
+    setTimeout(function(){ res.render('home', context); }, 3000);
+    res.render('home', context);
 });
 
 app.use(function(req, res) {
