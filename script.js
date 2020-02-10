@@ -57,6 +57,14 @@ app.get('/', function(req, res, next) {
     res.render('home', context);
 });
 
+app.get('/admin', function(req, res, next) {
+    console.log("I decided to run get/");
+    var context = {};
+    context.pgTitle = "IT LIVES!";
+
+    res.render('admin', context);
+});
+
 /*[DOESN'T WORK FOR SOME REASON?]
 app.get('/members', (req, res, next)=>{
 	res.json(pool.workouts);
