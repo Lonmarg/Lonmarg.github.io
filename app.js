@@ -1,15 +1,15 @@
 //set up Express
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 
 //set up handlebars
-var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
+let handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 // Server credentials
-var mysql = require('mysql');
-var pool = mysql.createPool({
+let mysql = require('mysql');
+let pool = mysql.createPool({
     connectionLimit: 10,
     host: 'classmysql.engr.oregonstate.edu',
     user: 'cs340_wellheup',
@@ -24,19 +24,23 @@ app.listen(app.get('port'), function() {
 });
 //NOTE: to run w/ forever after installing forever: ./node_modules/forever/bin/forever start app.js 4361
 
-//require path to navigate folders
-var path = require('path');
-//Set Static folder
-app.use(express.static(path.join(__dirname, 'public')));
+//Define Routes
+let path = require('path');//require path to navigate folders
+app.use(express.static(path.join(__dirname, 'public')));//Set Static folder
+// let home = require('.routes/home');
+// app.use('/home', home);//use home.js for home
+// let admin = require('./routes/admin');
+// app.use('/admin', admin);//use admin.js for admin
+//NOTE: I think we can separate our scripts into individual .js files but haven't figured it out yet...
 
 //include body parser so we can parse the bodies of post requests...
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res, next) {
     console.log("I decided to run get/");
-    var context = {};
+    let context = {};
     context.pgTitle = "IT LIVES!";
     // pool.query('SELECT * FROM workouts', function(err, rows, fields) {
     //     if (err) {
@@ -60,14 +64,14 @@ app.get('/', function(req, res, next) {
 
 app.get('/admin', function(req, res, next) {
     console.log("I decided to run get/");
-    var context = {};
+    let context = {};
     context.pgTitle = "IT LIVES!";
 
     res.render('admin', context);
 });
 
 // app.get('/add-exercise', (req, res, next) => {
-//     var context = {};
+//     let context = {};
 //     //pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES ('burpees', '10', '100', '2019-9-9', 'FALSE')", function (err, result){
 //     pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?, ?, ?, ?, ?)", [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs], function(err, result) {
 //         if (err) {
@@ -89,7 +93,7 @@ app.get('/admin', function(req, res, next) {
 // });
 
 // app.get('/:id', (req, res, next) => {
-//     var context = {};
+//     let context = {};
 //     pool.query('SELECT * FROM workouts WHERE id = (?)', req.params.id, function(err, rows, fields) {
 //         if (err) {
 //             next(err + " /:id");
@@ -110,7 +114,7 @@ app.get('/admin', function(req, res, next) {
 // });
 
 // /*app.get('/showall', (req, res, next) => {
-//     var context = {};
+//     let context = {};
 //     context.pgTitle = "Test showall";
 //     pool.query('SELECT * FROM workouts', function(err, rows, fields) {
 //         if (err) {
@@ -124,12 +128,12 @@ app.get('/admin', function(req, res, next) {
 // });*/
 
 // app.get('/reset-table', function(req, res, next) {
-//     var context = {};
+//     let context = {};
 //     pool.query("DROP TABLE IF EXISTS workouts", function(err) {
-//         //replace your connection pool with the your variable containing the connection pool
-//         var createString = "CREATE TABLE workouts(" +
+//         //replace your connection pool with the your letiable containing the connection pool
+//         let createString = "CREATE TABLE workouts(" +
 //             "id INT PRIMARY KEY AUTO_INCREMENT," +
-//             "name VARCHAR(255) NOT NULL," +
+//             "name letCHAR(255) NOT NULL," +
 //             "reps INT," +
 //             "weight INT," +
 //             "date DATE," +
@@ -147,7 +151,7 @@ app.get('/admin', function(req, res, next) {
 // } //[TEST PURPOSES ONLY]
 
 app.post('/', (req, res, next) => {
-    var context = {};
+    let context = {};
     // if (req.body['Add Exercise']) {
     //     console.log("Add Exercise");
     //     pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?, ?, ?, ?, ?)", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], function(err, result, fields) {
@@ -166,7 +170,7 @@ app.post('/', (req, res, next) => {
     //             return;
     //         }
     //         if (result.length == 1) {
-    //             var curVals = result[0];
+    //             let curVals = result[0];
     //             pool.query("UPDATE workout SET (name=?, reps=?, weight=?, date=?, lbs=?) WHERE id=? ", [req.body.name || curVals.name, req.body.reps || curVals.reps, req.body.weight || curVals.weight, req.body.date || curVals.date, req.body.lbs || curVals.lbs, req.body.id],
     //                 function(err, result) {
     //                     if (err) {
@@ -190,10 +194,10 @@ app.post('/', (req, res, next) => {
     // } if (req.body['Reset Table']) {
     //     console.log("Reset Table");
     //     pool.query("DROP TABLE IF EXISTS workouts", function(err) {
-    //         //replace your connection pool with the your variable containing the connection pool
-    //         var createString = "CREATE TABLE workouts(" +
+    //         //replace your connection pool with the your letiable containing the connection pool
+    //         let createString = "CREATE TABLE workouts(" +
     //             "id INT PRIMARY KEY AUTO_INCREMENT," +
-    //             "name VARCHAR(255) NOT NULL," +
+    //             "name letCHAR(255) NOT NULL," +
     //             "reps INT," +
     //             "weight INT," +
     //             "date DATE," +
