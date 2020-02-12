@@ -3,9 +3,7 @@ var express = require('express');
 var app = express();
 
 //set up handlebars
-var handlebars = require('express-handlebars').create({
-    defaultLayout: 'main'
-});
+var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -14,12 +12,17 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: 'classmysql.engr.oregonstate.edu',
-    user: 'cs290_wellheup',
-    password: '9378',
-    database: 'cs290_wellheup'
+    user: 'cs340_wellheup',
+    password: 'Akirr@5t@r5und3r',
+    database: 'cs340_wellheup'
 });
-//set port to use
+
+//set port to use and console message to remind how to end process
 app.set('port', 4361);
+app.listen(app.get('port'), function() {
+    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+});
+//NOTE: to run w/ forever after installing forever: ./node_modules/forever/bin/forever start app.js 4361
 
 //require path to navigate folders
 var path = require('path');
@@ -28,9 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //include body parser so we can parse the bodies of post requests...
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res, next) {
@@ -64,11 +65,6 @@ app.get('/admin', function(req, res, next) {
 
     res.render('admin', context);
 });
-
-/*[DOESN'T WORK FOR SOME REASON?]
-app.get('/members', (req, res, next)=>{
-	res.json(pool.workouts);
-});*/
 
 // app.get('/add-exercise', (req, res, next) => {
 //     var context = {};
@@ -244,6 +240,3 @@ app.use(function(err, req, res, next) {
     res.render('500');
 });
 
-app.listen(app.get('port'), function() {
-    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
-});
