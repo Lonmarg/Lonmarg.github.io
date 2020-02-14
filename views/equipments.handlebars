@@ -1,0 +1,175 @@
+<h1 class="text-center mb-3">40K Tabletop Game Squad Constructor</h1>
+
+<br>
+
+<div class="PageBar">
+	<a href="/">Home   |   </a>
+	<a href="/sergeants">Admin: Sergeants   |   </a>
+	<a href="/spacemarines">Admin: Space Marines   |   </a>
+	<a href="/equipments">Admin: Equipments</a>
+</div>
+
+<br>
+
+<p1>***Because the project requires the user to be able to INSERT / DELETE from EVERY table we have created admin
+    pages. These would be inaccesible to a normal user and allow editing the SpaceMarine Table, Sergeants Table
+    and Equipments Table. These tables would normally be pre-filled as we don't want users to randomly change the
+    values within these tables. They represent set entities in the rules of the game and shouldn't be changed.
+</p1>
+
+<br>
+
+<h4>Admin Page: Equipments</h4>
+
+<h5>Equipments Table</h5>
+<div class = "d-flex flex-row"></div>
+{{!-- EQUIPMENTS TABLE --}}
+<table class="table table-hover table-dark table-striped">
+    <tbody>
+        <tr>
+            <th scope = "row">Add/Remove </th>
+            <th scope = "row">ID </th>
+            <th scope = "row">Name</th>
+            <th scope = "row">Point Cost </th>
+            <th scope = "row">Is Sergeant Weapon </th>
+            <th scope = "row">Is Special Equipment </th>
+        </tr>
+{{!-- DISPLAY ALL CURRENT EQUIPMENTS --}}
+    {{#each equipments}}
+    <tr>
+        <td>
+            <form action ="/" method="post" class= "mb-4">
+                <div class="form-group">
+                    <form action ="/" method="post" class= "mb-4">
+                        <div class = "d-flex flex-row btn-group p-2">
+                            <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </form>
+        </td>
+        <td>{{marine.spaceMarineID}}</td>
+        <td>{{marine.assaultSquadID}}</td>
+        <td>{{marine.name}}</td>
+        {{#each equipments}}
+        <td>
+            {{!-- EACH EQUIPMENTS ASSOCIATED --}}
+        </td>
+        {{/each}}
+        <td>{{marine.basePointCost}}</td>
+    </tr>
+    {{/each}}
+{{!-- ADD MARINES --}}
+        <tr>
+            <form action ="/" method="post" class= "mb-4">
+                <div class="form-group">
+                    <td>
+                        <form action ="/" method="post" class= "mb-4">
+                            <div class = "d-flex flex-row">
+                                <div class="btn-group p-2">
+                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
+                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                    <td>1</td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentName" class="form-control" value="Sword"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentCost" class="form-control" value="35"> {{!--CHANGE THIS TO AN INT FIELD--}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
+                        </div>
+                    </td>
+                </div>
+            </form>
+        </tr>
+        <tr>
+            <form action ="/" method="post" class= "mb-4">
+                <div class="form-group">
+                    <td>
+                        <form action ="/" method="post" class= "mb-4">
+                            <div class = "d-flex flex-row">
+                                <div class="btn-group p-2">
+                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
+                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                    <td>2</td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentName" class="form-control" value="Bolter"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentCost" class="form-control" value="5"> {{!--CHANGE THIS TO AN INT FIELD--}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
+                        </div>
+                    </td>
+                </div>
+            </form>
+        </tr>
+                <tr>
+            <form action ="/" method="post" class= "mb-4">
+                <div class="form-group">
+                    <td>
+                        <form action ="/" method="post" class= "mb-4">
+                            <div class = "d-flex flex-row">
+                                <div class="btn-group p-2">
+                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
+                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                    <td>3</td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentName" class="form-control" value="Other"> 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="text" name="equipmentCost" class="form-control" value="15"> {{!--CHANGE THIS TO AN INT FIELD--}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group p-2">
+                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
+                        </div>
+                    </td>
+                </div>
+            </form>
+        </tr>
+    </tbody>
+</table>

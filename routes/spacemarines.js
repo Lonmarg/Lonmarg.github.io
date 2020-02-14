@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/', function(req, res, next) {
     let context = {};
 
-    res.render('home', context);
+    res.render('spacemarines', context);
 });
 
 module.exports = router;
