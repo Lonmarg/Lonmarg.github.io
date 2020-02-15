@@ -24,10 +24,9 @@
 <ul class="list-group">
 	<ul class="list-group-item border border-primary">
 		{{!-- ARMY LIST FORM --}}
-		<form action="/" method="post" class="mb-4">
-			<div class="row justify-content-md-left">
+		<form action="/" method="post" class="">
+			<div class="form-inline row justify-content-md-left">
 				<div class="btn-group p-2 col-md-auto">
-					<input type="button" name="+List" value="+" class="btn btn-primary">
 					<input type="button" name="-List" value="-" class="btn btn-primary">
 				</div>
 				<div class="form-group p-2 col-md-auto">
@@ -35,7 +34,10 @@
 					{{!--army can be updated with {{}} to update w/ each new one--}}
 				</div>
 				<div class="p-2 col-md-auto">
-					<h4>Number of Squads: x </h4>
+					<div class="form-group row p-2">
+						<label for="example-number-input" class="col-form-label text-nowrap p-2"><h4>Number of Squads </h4></label>
+							<input class="form-control p-2" type="number" value="0" id="numSquads" min="1" max="5">
+					</div>
 				</div>
 				<div class="p-2 col-md-auto">
 					<h4>Army Total Point Cost: x</h4>
@@ -45,10 +47,9 @@
 		<ul class="list-group">
 			<ul class="list-group-item border border-secondary">
 				{{!-- SQUAD FORM --}}
-				<form action="/" method="post" class="mb-4">
-					<div class="row justify-content-md-left">
+				<form action="/" method="post" class="">
+					<div class="form-inline row justify-content-md-left">
 						<div class="btn-group p-2 col-md-auto">
-							<input type="button" name="+Squad" value="+" class="btn btn-primary">
 							<input type="button" name="-Squad" value="-" class="btn btn-primary">
 						</div>
 						<div class="form-group p-2 col-md-auto">
@@ -81,13 +82,13 @@
 							<tbody>
 								<tr>
 									<th scope="row">ID</th>
-									<th scope="row">Equipment 1 </th>
-									<th scope="row">Equipment 2 </th>
-									<th scope="row">Point Cost </th>
+									<th scope="row">Equipment 1</th>
+									<th scope="row">Equipment 2</th>
+									<th scope="row">Point Cost</th>
 								</tr>
 								{{!-- SERGEANT EQUIPMENT TABLE CONTENT --}}
 								<tr>
-									<form action="/" method="post" class="mb-4">
+									<form action="/" method="post" class="">
 										<div class="form-group">
 											<td>1</td>
 											<td>
@@ -119,22 +120,48 @@
 							<h6>Sergeant's Special Equipment</h6>
 							<tbody>
 								<tr>
-									<th scope="row">Add/Remove </th>
-									<th scope="row">ID </th>
-									<th scope="row">Special Equipment </th>
-									<th scope="row">Point Cost </th>
+									<th scope="row">Add/Remove</th>
+									<th scope="row">ID</th>
+									<th scope="row">Special Equipment</th>
+									<th scope="row">Point Cost</th>
 								</tr>
 								{{!-- SPECIAL EQUIPMENT CONTENT--}}
-								<tr>
-									<form action="/" method="post" class="mb-4">
+								{{#if hasSpecialEquip}}
+								<tr class = "">{{!--  THIS ROW IS HIDDEN B/C IT ONLY SHOWS UP IF YOU HAVE A SPECIAL WEAPON ALREADY --}}
+									<form action="/" method="post" class="">
 										<div class="form-group">
 											<td>
-												<form action="/" method="post" class="mb-4">
+												<form action="/" method="post" class="">
+													<div class="d-flex flex-row">
+														<div class="btn-group p-2">
+															<input type="button" name="-SpecEquip" value="-"
+																class="btn btn-primary">
+														</div>
+													</div>
+												</form>
+											</td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Special Weapon</option>
+													<option value="1">special sword</option>
+													<option value="2">special bolter</option>
+													<option value="3">special other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+								{{/if}}
+								<tr> 
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td>
+												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
 														<div class="btn-group p-2">
 															<input type="button" name="+SpecEquip" value="+"
-																class="btn btn-primary">
-															<input type="button" name="-SpecEquip" value="-"
 																class="btn btn-primary">
 														</div>
 													</div>
@@ -164,23 +191,158 @@
 						<table class="table table-hover table-dark table-striped">
 							<tbody>
 								<tr>
-									<th scope="row">Add/Remove </th>
-									<th scope="row">ID </th>
-									<th scope="row">Equipment 1 </th>
-									<th scope="row">Equipment 2 </th>
-									<th scope="row">Point Cost </th>
+									<th scope="row">Add/Remove</th>
+									<th scope="row">ID</th>
+									<th scope="row">Equipment 1</th>
+									<th scope="row">Equipment 2</th>
+									<th scope="row">Point Cost</th>
 								</tr>
 								{{!-- Space Marines TABLE CONTENT --}}
 								<tr>
-									<form action="/" method="post" class="mb-4">
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td></td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon1</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon2</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+																<tr>
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td></td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon1</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon2</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+																<tr>
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td></td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon1</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon2</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+																<tr>
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td></td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon1</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon2</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+								{{#if moreThanFourMarines}}
+								{{!-- ADD A FOR EACH HERE? --}}
+								<tr>
+									<form action="/" method="post" class="">
 										<div class="form-group">
 											<td>
-												<form action="/" method="post" class="mb-4">
+												<form action="/" method="post" class="">
+													<div class="d-flex flex-row">
+														<div class="btn-group p-2">
+															<input type="button" name="-Squad" value="-"
+																class="btn btn-primary">
+														</div>
+													</div>
+												</form>
+											</td>
+											<td>1</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon1</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>
+												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+													<option selected>Weapon2</option>
+													<option value="1">sword</option>
+													<option value="2">bolter</option>
+													<option value="3">other</option>
+												</select>
+											</td>
+											<td>x</td>
+										</div>
+									</form>
+								</tr>
+								{{/if}}
+								<tr>
+									<form action="/" method="post" class="">
+										<div class="form-group">
+											<td>
+												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
 														<div class="btn-group p-2">
 															<input type="button" name="+Squad" value="+"
-																class="btn btn-primary">
-															<input type="button" name="-Squad" value="-"
 																class="btn btn-primary">
 														</div>
 													</div>
@@ -212,7 +374,55 @@
 					</ul>
 				</ul>
 			</ul>
+			<ul class="list-group-item border border-secondary">
+				{{!-- SQUAD FORM --}}
+				<form action="/" method="post" class="">
+					<div class="form-inline row justify-content-md-left">
+						<div class="btn-group p-2 col-md-auto">
+							<input type="button" name="+Squad" value="+" class="btn btn-primary">
+						</div>
+						<div class="form-group p-2 col-md-auto">
+							<input type="text" name="squadName" class="form-control" value="Squad2">
+						</div>
+						<div class="p-2 col-md-auto">
+							<h4>Squad Members: x/y </h4>
+						</div>
+						<div class="p-2 col-md-auto">
+							<h4>Total Squad Point Cost: x</h4>
+						</div>
+						<div class="p-2 col-md-auto">
+							<div class="custom-control custom-switch ">
+								<input type="checkbox" class="custom-control-input" id="jumppacks">
+								<label class="custom-control-label" for="jumppacks"><h4>Jumppacks</h4></label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</ul>
 		</ul>
+	</ul>
+	<ul class="list-group-item border border-primary">
+		{{!-- ADD TO ARMYLIST --}}
+		<form action="/" method="post" class="">
+			<div class="form-inline row justify-content-md-left">
+				<div class="btn-group p-2 col-md-auto">
+					<input type="button" name="+List" value="+" class="btn btn-primary">
+				</div>
+				<div class="form-group p-2 col-md-auto">
+					<input type="text" name="armyName" class="form-control" value="Army2">
+					{{!--army can be updated with {{}} to update w/ each new one--}}
+				</div>
+				<div class="p-2 col-md-auto">
+					<div class="form-group row p-2">
+						<label for="example-number-input" class="col-form-label text-nowrap p-2"><h4>Number of Squads </h4></label>
+							<input class="form-control p-2" type="number" value="0" id="numSquads" min="1" max="5">
+					</div>
+				</div>
+				<div class="p-2 col-md-auto">
+					<h4>Army Total Point Cost: x</h4>
+				</div>
+			</div>
+		</form>
 	</ul>
 </ul>
 </table>
@@ -237,14 +447,14 @@
 				<td>{{this.date}}</td>
 				<td>{{this.lbs}}</td>
 				<td>
-					<form action="/" method="post" class="mb-4">
+					<form action="/" method="post" class="">
 						<input hidden type="int" name="reps" class="form-control" value="{{this.id}}">
 						<input type="submit" name="Edit Exercise" value="Edit Exercise"
 							class="btn btn-primary btn-block">
 					</form>
 				</td>
 				<td>
-					<form action="/" method="post" class="mb-4">
+					<form action="/" method="post" class="">
 						<input hidden type="int" name="reps" class="form-control" value="{{this.id}}">
 						<input type="submit" name="Delete Exercise" value="Delete Exercise"
 							class="btn btn-primary btn-block">
@@ -252,7 +462,7 @@
 				</td>
 			</tr>
 			{{/each}}
-			<form action="/" method="post" class="mb-4">
+			<form action="/" method="post" class="">
 				<tr>
 					<th scope="row">
 						<div class="form-group">
@@ -293,7 +503,7 @@
 		</tbody>
 	</table>
 
-	<form action="/" method="post" class="mb-4"></form>
+	<form action="/" method="post" class=""></form>
 	<input type="button" name="Reset Table" value="Reset Table" class="btn btn-primary btn-block">
 	</form>
 </div>
