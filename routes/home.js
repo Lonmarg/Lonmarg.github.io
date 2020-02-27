@@ -2,9 +2,26 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
-    let context = {};
+    
+	let pool = mysql.createPool({
+		connectionLimit: 10,
+		host: 'classmysql.engr.oregonstate.edu',
+		user: 'cs340_wellheup',
+		password: 'Akirr@5t@r5und3r',
+		database: 'cs340_wellheup'
+	});
+	
+	pool.query("SELECT * FROM armylists", function(err, result)
+	{
+		if(err)
+		{
+			next(err);
+			return;
+		}
+		
+		res.render('home', result);
 
-    res.render('home', context);
+	});
 });
 
 module.exports = router;
