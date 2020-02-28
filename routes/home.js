@@ -29,17 +29,25 @@ const pool = mysql.createPool({
 // 	});
 // });
 
-app.get('/', function(req, res, next) {
-	let context = {};
-	context.planSubtitle="please show up";
-    pool.query('SELECT * FROM armylists', function(err, rows, fields) {
-        if (err) {
-            next(err + "/");
-            return;
-        }
-        // context.results = JSON.stringify(rows);
-		res.render('equipments', context);
-    });
-});
+// app.get('/', function(req, res, next) {
+// 	let context = {};
+// 	context.planSubtitle="please show up";
+//     pool.query('SELECT * FROM armylists', function(err, rows, fields) {
+//         if (err) {
+//             next(err + "/");
+//             return;
+//         }
+//         // context.results = JSON.stringify(rows);
+// 		res.render('equipments', context);
+//     });
+// });
+
+router.get('/', function (req, res) {
+    let context = {};
+    context.planSubtitle="Home";
+    context.this ="Hello";
+  
+    res.render('home', context);
+  });
 
 module.exports = router;
