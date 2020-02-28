@@ -31,7 +31,8 @@ const pool = mysql.createPool({
 
 router.get('/', function(req, res, next) {
     console.log("I decided to run get/");
-    var context = {};
+	var context = {};
+	context.test="please show up";
     pool.query('SELECT * FROM armylists', function(err, rows, fields) {
         if (err) {
             next(err + "/");
