@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 		}
         context = JSON.stringify(result);
         context.subtitle = "subtitle";
-		res.render('home', context);
+		res.render('home', result);
 
 	});
 });
