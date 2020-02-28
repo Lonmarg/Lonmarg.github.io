@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 			return;
 		}
 		
-		res.render('home', result);
+		res.render('equipments', result);
 
 	});
 });
