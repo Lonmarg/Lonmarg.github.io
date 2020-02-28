@@ -9,6 +9,9 @@ app.engine('handlebars', handlebars.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
+//set up router
+const router = express.Router()
+
 //Setup Routes
 const homeRouter = require('./routes/home');
 const equipmentsRouter = require('./routes/equipments');
