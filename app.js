@@ -25,10 +25,12 @@ const sergeantsRouter = require('./routes/sergeants')
 //     database: 'cs340_wellheup'
 // });
 
+console.log("app.js has at least run");
+
 //set port to use and console message to remind how to end process
 app.set('port', 4361);
 app.listen(app.get('port'), function() {
-    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+    logger('Express started on http://flip2.engr.oregonstate.edu:4361/ press Ctrl-C to terminate.');
 });
 
 //include body parser so we can parse the bodies of post requests...
