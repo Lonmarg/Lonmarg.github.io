@@ -55,5 +55,10 @@ app.use(function(err, req, res, next) {
     res.render('500');
 });
 
+//import logger
+var logger = require('./middleware/logger');
+//init logger middleware
+app.use(logger);
+
 //Needed for routes, no idea what this does
 module.exports = app;
