@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 	// });
    
     let context = {};
+    context.subtitle = "words";
 	// pool.query("SELECT * FROM armylists", function(err, result)
 	// {
 		// if(err)
