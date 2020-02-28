@@ -26,10 +26,10 @@ const mysql = require('mysql');
 // 	});
 // });
 
-router.get('/', function(req, res, next){
-    context = {};
-    context.planSubtitle = req.query.myData;
-    res.render('home', context);
-})
+// router.get('/', function(req, res, next){
+//     context = {};
+//     context.planSubtitle = req.query.myData;
+//     res.render('home', context);
+// })
 
 module.exports = router;
