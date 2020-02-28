@@ -26,4 +26,10 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/', function(req, res, next){
+    context = {};
+    context.planSubtitle = req.query.myData;
+    res.render('home', context);
+})
+
 module.exports = router;
