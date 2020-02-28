@@ -10,8 +10,7 @@ router.get('/', function(req, res, next) {
 		password: 'Akirr@5t@r5und3r',
 		database: 'cs340_wellheup'
 	});
-    console.log("get/ is trying to query");
-    
+   
     var context = {};
 	pool.query("SELECT * FROM armylists", function(err, result)
 	{
@@ -20,9 +19,9 @@ router.get('/', function(req, res, next) {
 			next(err);
 			return;
 		}
-		
+		context = JSON.stringify(result);
 		res.render('home', result);
-        context = JSON.stringify(result);
+
 	});
 });
 
