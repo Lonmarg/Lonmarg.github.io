@@ -3,6 +3,7 @@ const router = express.Router();
 const mysql = require('mysql');
 
 router.get('/', function(req, res, next) {
+	console.log("get/ is running from home.js");
 	let pool = mysql.createPool({
 		connectionLimit: 10,
 		host: 'classmysql.engr.oregonstate.edu',
@@ -11,8 +12,6 @@ router.get('/', function(req, res, next) {
 		database: 'cs340_wellheup'
 	});
 
-	console.log("get/ is trying to query");
-	
 	pool.query("SELECT * FROM armylists", function(err, result)
 	{
 		if(err)
