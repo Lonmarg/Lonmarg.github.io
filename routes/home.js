@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 			return;
 		}
         context = JSON.stringify(result);
-        context.subtitle = "subtitle";
+        result.subtitle = "subtitle";
 		res.render('home', result);
 
 	});
