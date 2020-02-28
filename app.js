@@ -1,10 +1,10 @@
 //set up Express
-let express = require('express');
-let app = express();
-let path = require('path');
+const express = require('express');
+const app = express();
+const path = require('path');
 
 //set up handlebars
-let handlebars = require('express-handlebars').create({defaultLayout: 'main'});
+const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
@@ -16,14 +16,14 @@ const spacemarinesRouter = require('./routes/spacemarines')
 const sergeantsRouter = require('./routes/sergeants')
 
 // Server credentials
-let mysql = require('mysql');
-let pool = mysql.createPool({
-    connectionLimit: 10,
-    host: 'classmysql.engr.oregonstate.edu',
-    user: 'cs340_wellheup',
-    password: 'Akirr@5t@r5und3r',
-    database: 'cs340_wellheup'
-});
+// const mysql = require('mysql');
+// const pool = mysql.createPool({
+//     connectionLimit: 10,
+//     host: 'classmysql.engr.oregonstate.edu',
+//     user: 'cs340_wellheup',
+//     password: 'Akirr@5t@r5und3r',
+//     database: 'cs340_wellheup'
+// });
 
 //set port to use and console message to remind how to end process
 app.set('port', 4361);
@@ -32,7 +32,7 @@ app.listen(app.get('port'), function() {
 });
 
 //include body parser so we can parse the bodies of post requests...
-let bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 

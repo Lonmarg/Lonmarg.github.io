@@ -42,7 +42,7 @@
             <form action ="/" method="post" class= "mb-4">
                 <div class="form-group">
                     <form action ="/" method="post" class= "mb-4">
-                        <div class = "d-flex flex-row btn-group p-2">
+                        <div class = "d-flex flex-row btn-group ">
                             <input type="button" name="-Squad" value="-" class="btn btn-primary">
                         </div>
                     </form>
@@ -67,26 +67,23 @@
                     <td>
                         <form action ="/" method="post" class= "mb-4">
                             <div class = "d-flex flex-row">
-                                <div class="btn-group p-2">
+                                <div class="btn-group ">
                                     <input type="button" name="+Squad" value="+" class="btn btn-primary">
-                                    <input type="button" name="-Squad" value="-" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>
                     </td>
-                    <td>1</td>
+                    <td>--</td>
                     <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="squadName" class="form-control" value="AssaultSquad1"> 
-                        </div>
+                        <input type="number" id="squadID" name="squadID" min="0" max="20" value = 20 class="form-control">
                     </td>
                     <td>
-                        <div class="form-group p-2">
+                        <div class="form-group ">
                             <input type="text" name="marineName" class="form-control" value="SpaceMarine1"> 
                         </div>
                     </td>
                     <td>
-                        <select class="custom-select my-1 mr-sm-2" id="weapon1">
+                        <select class="custom-select mr-sm-2" id="weapon1">
                             <option selected>Weapon1</option>
                             {{#each equipments}}
                             <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
@@ -94,7 +91,7 @@
                         </select>
                     </td>
                     <td>
-                        <select class="custom-select my-1 mr-sm-2" id="weapon1">
+                        <select class="custom-select mr-sm-2" id="weapon1">
                             <option selected>Weapon2</option>
                             {{#each equipments}}
                             <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
@@ -102,57 +99,7 @@
                         </select>
                     </td>
                     <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="marineName" class="form-control" value="15"> {{!--CHANGE THIS TO AN INT FIELD--}}
-                        </div>
-                    </td>
-                </div>
-            </form>
-        </tr>
-        <tr>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <td>
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class = "d-flex flex-row">
-                                <div class="btn-group p-2">
-                                    <input type="button" name="+Squad" value="+" class="btn btn-primary">
-                                    <input type="button" name="-Squad" value="-" class="btn btn-primary">
-                                </div>
-                            </div>
-                        </form>
-                    </td>
-                    <td>2</td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="squadName" class="form-control" value="AssaultSquad1"> 
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="marineName" class="form-control" value="SpaceMarine2"> 
-                        </div>
-                    </td>
-                    <td>
-                        <select class="custom-select my-1 mr-sm-2" id="weapon1">
-                            <option selected>Weapon1</option>
-                            {{#each equipments}}
-                            <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <select class="custom-select my-1 mr-sm-2" id="weapon1">
-                            <option selected>Weapon2</option>
-                            {{#each equipments}}
-                            <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="marineName" class="form-control" value="15"> {{!--CHANGE THIS TO AN INT FIELD--}}
-                        </div>
+                        <input type="number" id="marineCost" name="marineName" min="0" max="20" value = 20 class="form-control">
                     </td>
                 </div>
             </form>

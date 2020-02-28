@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql');
 
 router.get('/', function(req, res, next) {
-    
 	let pool = mysql.createPool({
 		connectionLimit: 10,
 		host: 'classmysql.engr.oregonstate.edu',
