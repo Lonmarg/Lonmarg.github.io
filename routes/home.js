@@ -21,8 +21,12 @@ router.get('/', function(req, res, next) {
 		}
         // context = JSON.stringify(result);
         // result.subtitle = "subtitle";
-		// res.render('home', result);
-        res.send('test text')
+		
+		var stuffToDisplay = {};
+		stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
+		
+		res.render('home', stuffToDisplay);
+        //res.send('test text')
 	});
 });
 
