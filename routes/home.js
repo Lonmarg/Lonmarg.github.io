@@ -20,7 +20,6 @@ router.get('/', function(req, res, next) {
 			return;
 		}
         context = JSON.stringify(result);
-        context
 		res.render('home', context);
 
 	});
