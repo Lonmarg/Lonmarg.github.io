@@ -41,22 +41,23 @@
             <form action ="/" method="post" class= "mb-4">
                 <div class="form-group">
                     <form action ="/" method="post" class= "mb-4">
-                        <div class = "d-flex flex-row btn-group p-2">
+                        <div class = "d-flex flex-row btn-group ">
                             <input type="button" name="-Equipments" value="-" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
             </form>
         </td>
-        <td>{{marine.spaceMarineID}}</td>
-        <td>{{marine.assaultSquadID}}</td>
-        <td>{{marine.name}}</td>
-        {{#each equipments}}
-        <td>
-            {{!-- EACH EQUIPMENTS ASSOCIATED --}}
+        <td>{{equipment.id}}</td>
+        <td>{{equipment.name}}</td>
+        <td>{{equipment.cost}}</td>
+        <td> {{!-- IF STATEMENT HERE TO SET CHECKED OR NOT --}}
+            <div class="custom-control custom-switch ">
+                <input type="checkbox" class="custom-control-input " id="issergeantweapon" checked name="sergeantweapon">
+                <label class="custom-control-label" for="issergeantweapon"></label>
+            </div>
         </td>
-        {{/each}}
-        <td>{{marine.basePointCost}}</td>
+        <td></td>
     </tr>
     {{/each}}
 {{!-- ADD MARINES --}}
@@ -66,106 +67,31 @@
                     <td>
                         <form action ="/" method="post" class= "mb-4">
                             <div class = "d-flex flex-row">
-                                <div class="btn-group p-2">
+                                <div class="btn-group ">
                                     <input type="button" name="+Equipments" value="+" class="btn btn-primary">
-                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
                                 </div>
                             </div>
                         </form>
                     </td>
                     <td>1</td>
                     <td>
-                        <div class="form-group p-2">
+                        <div class="form-group ">
                             <input type="text" name="equipmentName" class="form-control" value="Sword"> 
                         </div>
                     </td>
                     <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="equipmentCost" class="form-control" value="35"> {{!--CHANGE THIS TO AN INT FIELD--}}
+                        <input type="number" id="equipmentCost" name="equipmentCost" min="0" max="99" value = 20 value="35" class="form-control">
+                    </td>
+                    <td>
+                        <div class="custom-control custom-switch ">
+                            <input type="checkbox" class="custom-control-input " id="issergeantweapon" name="sergeantweapon">
+                            <label class="custom-control-label" for="issergeantweapon"></label>
                         </div>
                     </td>
                     <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
-                        </div>
-                    </td>
-                </div>
-            </form>
-        </tr>
-        <tr>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <td>
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class = "d-flex flex-row">
-                                <div class="btn-group p-2">
-                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
-                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
-                                </div>
-                            </div>
-                        </form>
-                    </td>
-                    <td>2</td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="equipmentName" class="form-control" value="Bolter"> 
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="equipmentCost" class="form-control" value="5"> {{!--CHANGE THIS TO AN INT FIELD--}}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
-                        </div>
-                    </td>
-                </div>
-            </form>
-        </tr>
-                <tr>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <td>
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class = "d-flex flex-row">
-                                <div class="btn-group p-2">
-                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
-                                    <input type="button" name="-Equipments" value="-" class="btn btn-primary">
-                                </div>
-                            </div>
-                        </form>
-                    </td>
-                    <td>3</td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="equipmentName" class="form-control" value="Other"> 
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="text" name="equipmentCost" class="form-control" value="15"> {{!--CHANGE THIS TO AN INT FIELD--}}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="issergeantweapon" name="sergeantweapon">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group p-2">
-                            <input type="checkbox" id="isspecialequipment" name="specialequipment">
+                        <div class="custom-control custom-switch ">
+                            <input type="checkbox" class="custom-control-input " id="isspecialequipment" checked name="specialequipment">
+                            <label class="custom-control-label" for="isspecialequipment"></label>
                         </div>
                     </td>
                 </div>

@@ -28,22 +28,21 @@
 <ul class="list-group">
 	<ul class="list-group-item border border-primary">
 		{{!-- ARMY LIST FORM --}}
-		<form action="/" method="post" class="">
+		<form action="/" method="post" class="py-2">
 			<div class="form-inline row justify-content-md-left">
-				<div class="btn-group p-2 col-md-auto">
+				<div class="btn-group  col-md-auto">
 					<input type="button" name="-List" value="-" class="btn btn-primary">
 				</div>
-				<div class="form-group p-2 col-md-auto">
+				<div class="form-group  col-md-auto">
 					<input type="text" name="armyName" class="form-control" value="Army1">
 					{{!--army can be updated with {{}} to update w/ each new one--}}
 				</div>
-				<div class="p-2 col-md-auto">
-					<div class="form-group row p-2">
-						<label for="example-number-input" class="col-form-label text-nowrap p-2"><h4>Number of Squads </h4></label>
-							<input class="form-control p-2" type="number" value="0" id="numSquads" min="1" max="5">
+				<div class=" col-md-auto">
+					<div class=" col-md-auto">
+						<h4>Squads: x</h4>
 					</div>
 				</div>
-				<div class="p-2 col-md-auto">
+				<div class=" col-md-auto">
 					<h4>Army Total Point Cost: x</h4>
 				</div>
 			</div>
@@ -51,27 +50,26 @@
 		<ul class="list-group">
 			<ul class="list-group-item border border-secondary">
 				{{!-- SQUAD FORM --}}
-				<form action="/" method="post" class="">
+				<form action="/" method="post" class="py-2">
 					<div class="form-inline row justify-content-md-left">
-						<div class="btn-group p-2 col-md-auto">
+						<div class="btn-group  col-md-auto">
 							<input type="button" name="-Squad" value="-" class="btn btn-primary">
 						</div>
-						<div class="form-group p-2 col-md-auto">
+						<div class="form-group  col-md-auto">
 							<input type="text" name="squadName" class="form-control" value="Squad1">
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<h4>Squad Members: x/y </h4>
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<h4>Total Squad Point Cost: x</h4>
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<div class="custom-control custom-switch ">
 								<input type="checkbox" class="custom-control-input" id="jumppacks">
 								<label class="custom-control-label" for="jumppacks"><h4>Jumppacks</h4></label>
 							</div>
 						</div>
-
 					</div>
 				</form>
 				<ul class="list-group">
@@ -96,7 +94,7 @@
 										<div class="form-group">
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -104,7 +102,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -137,7 +135,7 @@
 											<td>
 												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
-														<div class="btn-group p-2">
+														<div class="btn-group ">
 															<input type="button" name="-SpecEquip" value="-"
 																class="btn btn-primary">
 														</div>
@@ -146,7 +144,7 @@
 											</td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Special Weapon</option>
 													<option value="1">special sword</option>
 													<option value="2">special bolter</option>
@@ -164,7 +162,7 @@
 											<td>
 												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
-														<div class="btn-group p-2">
+														<div class="btn-group ">
 															<input type="button" name="+SpecEquip" value="+"
 																class="btn btn-primary">
 														</div>
@@ -173,7 +171,7 @@
 											</td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Special Weapon</option>
 													<option value="1">special sword</option>
 													<option value="2">special bolter</option>
@@ -210,7 +208,7 @@
 											<td></td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -218,7 +216,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -235,7 +233,7 @@
 											<td></td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -243,7 +241,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -260,7 +258,7 @@
 											<td></td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -268,7 +266,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -285,7 +283,7 @@
 											<td></td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -293,7 +291,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -312,7 +310,7 @@
 											<td>
 												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
-														<div class="btn-group p-2">
+														<div class="btn-group ">
 															<input type="button" name="-Squad" value="-"
 																class="btn btn-primary">
 														</div>
@@ -321,7 +319,7 @@
 											</td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -329,7 +327,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -347,7 +345,7 @@
 											<td>
 												<form action="/" method="post" class="">
 													<div class="d-flex flex-row">
-														<div class="btn-group p-2">
+														<div class="btn-group ">
 															<input type="button" name="+Squad" value="+"
 																class="btn btn-primary">
 														</div>
@@ -356,7 +354,7 @@
 											</td>
 											<td>1</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon1</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -364,7 +362,7 @@
 												</select>
 											</td>
 											<td>
-												<select class="custom-select my-1 mr-sm-2" id="weapon1">
+												<select class="custom-select mr-sm-2" id="weapon1">
 													<option selected>Weapon2</option>
 													<option value="1">sword</option>
 													<option value="2">bolter</option>
@@ -382,21 +380,21 @@
 			</ul>
 			<ul class="list-group-item border border-secondary">
 				{{!-- SQUAD FORM --}}
-				<form action="/" method="post" class="">
+				<form action="/" method="post" class="py-2">
 					<div class="form-inline row justify-content-md-left">
-						<div class="btn-group p-2 col-md-auto">
+						<div class="btn-group  col-md-auto">
 							<input type="button" name="+Squad" value="+" class="btn btn-primary">
 						</div>
-						<div class="form-group p-2 col-md-auto">
+						<div class="form-group  col-md-auto">
 							<input type="text" name="squadName" class="form-control" value="Squad2">
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<h4>Squad Members: x/y </h4>
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<h4>Total Squad Point Cost: x</h4>
 						</div>
-						<div class="p-2 col-md-auto">
+						<div class=" col-md-auto">
 							<div class="custom-control custom-switch ">
 								<input type="checkbox" class="custom-control-input" id="jumppacks">
 								<label class="custom-control-label" for="jumppacks"><h4>Jumppacks</h4></label>
@@ -409,22 +407,21 @@
 	</ul>
 	<ul class="list-group-item border border-primary">
 		{{!-- ADD TO ARMYLIST --}}
-		<form action="/" method="post" class="">
+		<form action="/" method="post" class="py-2">
 			<div class="form-inline row justify-content-md-left">
-				<div class="btn-group p-2 col-md-auto">
+				<div class="btn-group  col-md-auto">
 					<input type="button" name="+List" value="+" class="btn btn-primary">
 				</div>
-				<div class="form-group p-2 col-md-auto">
+				<div class="form-group  col-md-auto">
 					<input type="text" name="armyName" class="form-control" value="Army2">
 					{{!--army can be updated with {{}} to update w/ each new one--}}
 				</div>
-				<div class="p-2 col-md-auto">
-					<div class="form-group row p-2">
-						<label for="example-number-input" class="col-form-label text-nowrap p-2"><h4>Number of Squads </h4></label>
-							<input class="form-control p-2" type="number" value="0" id="numSquads" min="1" max="5">
+				<div class=" col-md-auto">
+					<div class=" col-md-auto">
+						<h4>Squads: x</h4>
 					</div>
 				</div>
-				<div class="p-2 col-md-auto">
+				<div class=" col-md-auto">
 					<h4>Army Total Point Cost: x</h4>
 				</div>
 			</div>
