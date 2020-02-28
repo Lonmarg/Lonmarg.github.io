@@ -22,12 +22,17 @@ router.get('/', function(req, res, next) {
         // context = JSON.stringify(result);
         // result.subtitle = "subtitle";
 		
-		var stuffToDisplay = {};
-		stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
+		// var stuffToDisplay = {};
+		// stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
 		
-		res.render('home', stuffToDisplay);
+		// res.render('home', stuffToSend);
         //res.send('test text')
 	});
+	
+	var stuffToDisplay = {};
+	stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
+		
+	res.render('home', stuffToSend);
 });
 
 module.exports = router;
