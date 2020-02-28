@@ -29,7 +29,7 @@ const pool = mysql.createPool({
 // 	});
 // });
 
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
     console.log("I decided to run get/");
 	var context = {};
 	context.test="please show up";
