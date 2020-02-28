@@ -28,10 +28,10 @@ const sergeantsRouter = require('./routes/sergeants')
 // });
 
 //set port to use and console message to remind how to end process
-app.set('port', 4361);
-app.listen(app.get('port'), function() {
-    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
-});
+// app.set('port', 4361);
+// app.listen(app.get('port'), function() {
+//     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+// });
 
 //include body parser so we can parse the bodies of post requests...
 const bodyParser = require('body-parser');
