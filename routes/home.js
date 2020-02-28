@@ -19,10 +19,10 @@ router.get('/', function(req, res, next) {
 			next(err);
 			return;
 		}
-        context = JSON.stringify(result);
-        result.subtitle = "subtitle";
-		res.render('home', result);
-
+        // context = JSON.stringify(result);
+        // result.subtitle = "subtitle";
+		// res.render('home', result);
+        res.send('test text')
 	});
 });
 
