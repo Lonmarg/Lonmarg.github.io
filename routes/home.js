@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 		}
 		
 		res.render('home', result);
-        context.results = JSON.stringify(result);
+        context = JSON.stringify(result);
 	});
 });
 
