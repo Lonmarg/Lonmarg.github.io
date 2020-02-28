@@ -38,7 +38,6 @@ router.get('/', function(req, res, next) {
             return;
         }
         context.results = JSON.stringify(rows);
-		context.table = rows;
 		res.render('home', context);
     });
 });
