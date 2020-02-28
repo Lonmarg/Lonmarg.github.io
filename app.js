@@ -1,3 +1,5 @@
+console.log("hello from app.js")
+
 //set up Express
 const express = require('express');
 const app = express();
@@ -25,12 +27,10 @@ const sergeantsRouter = require('./routes/sergeants')
 //     database: 'cs340_wellheup'
 // });
 
-console.log("app.js has at least run");
-
 //set port to use and console message to remind how to end process
 app.set('port', 4361);
 app.listen(app.get('port'), function() {
-    logger('Express started on http://flip2.engr.oregonstate.edu:4361/ press Ctrl-C to terminate.');
+    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
 
 //include body parser so we can parse the bodies of post requests...
@@ -56,11 +56,6 @@ app.use(function(err, req, res, next) {
     res.status(500);
     res.render('500');
 });
-
-//import logger
-var logger = require('./middleware/logger');
-//init logger middleware
-app.use(logger);
 
 //Needed for routes, no idea what this does
 module.exports = app;

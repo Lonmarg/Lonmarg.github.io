@@ -3,8 +3,7 @@ const router = express.Router();
 const mysql = require('mysql');
 
 router.get('/', function(req, res, next) {
-	console.log("get/ is running from home.js");
-	let pool = mysql.createPool({
+		let pool = mysql.createPool({
 		connectionLimit: 10,
 		host: 'classmysql.engr.oregonstate.edu',
 		user: 'cs340_wellheup',
