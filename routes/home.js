@@ -30,9 +30,8 @@ const pool = mysql.createPool({
 // });
 
 app.get('/', function(req, res, next) {
-    console.log("I decided to run get/");
-	var context = {};
-	context.test="please show up";
+	let context = {};
+	context.planSubtitle="please show up";
     pool.query('SELECT * FROM armylists', function(err, rows, fields) {
         if (err) {
             next(err + "/");

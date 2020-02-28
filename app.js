@@ -1,5 +1,3 @@
-console.log("hello from app.js")
-
 //set up Express
 const express = require('express');
 const app = express();
