@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 	var stuffToDisplay = {};
 	stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
 		
-	res.render('home', stuffToSend);
+	res.render('home', stuffToDisplay);
 });
 
 module.exports = router;
