@@ -55,5 +55,11 @@ app.use(function(err, req, res, next) {
     res.render('500');
 });
 
+app.get('/', function(req, res, next){
+    context = {};
+    context.planSubtitle = req.query.myData;
+    res.render('home', context);
+})
+
 //Needed for routes, no idea what this does
 module.exports = app;
