@@ -42,7 +42,7 @@ const pool = mysql.createPool({
 //     });
 // });
 
-router.get('/', function (req, res) {
+router.post('/', function (req, res) {
     let context = {};
     context.planSubtitle="Home";
     context.this ="Hello";
