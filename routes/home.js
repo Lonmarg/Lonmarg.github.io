@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
 			next(err);
 			return;
 		}
-		context = JSON.stringify(result);
-		res.render('home', result);
+        context = JSON.stringify(result);
+        context
+		res.render('home', context);
 
 	});
 });
