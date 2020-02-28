@@ -11,28 +11,28 @@ router.get('/', function(req, res, next) {
 		database: 'cs340_wellheup'
 	});
    
-    var context = {};
-	pool.query("SELECT * FROM armylists", function(err, result)
-	{
-		if(err)
-		{
-			next(err);
-			return;
-		}
-        // context = JSON.stringify(result);
-        // result.subtitle = "subtitle";
+    let context = {};
+	// pool.query("SELECT * FROM armylists", function(err, result)
+	// {
+		// if(err)
+		// {
+			// next(err);
+			// return;
+		// }
+        // // context = JSON.stringify(result);
+        // // result.subtitle = "subtitle";
 		
-		// var stuffToDisplay = {};
-		// stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
+		// // var stuffToDisplay = {};
+		// // stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
 		
-		// res.render('home', stuffToSend);
-        //res.send('test text')
-	});
+		// // res.render('home', stuffToSend);
+        // //res.send('test text')
+	// });
 	
-	var stuffToDisplay = {};
-	stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
+	// var stuffToDisplay = {};
+	// stuffToDisplay.headertext = "I passed some stuff to handlebars via home.js!";
 		
-	res.render('home', stuffToDisplay);
+	res.render('home', context);
 });
 
 module.exports = router;
