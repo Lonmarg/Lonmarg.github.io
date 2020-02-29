@@ -22,9 +22,10 @@
 
 <br>
 
-<h4>My Army Lists: {{subtitle}}</h4>
+<h4>My Army Lists:</h4>
 <ul class="list-group">
-	<ul class="list-group-item border border-primary">
+	{{#each armylists}}
+	<li class="list-group-item border border-primary">
 		{{!-- ARMY LIST FORM --}}
 		<form action="/" method="post" class="py-2">
 			<div class="form-inline row justify-content-md-left">
@@ -32,7 +33,7 @@
 					<input type="button" name="-List" value="-" class="btn btn-primary">
 				</div>
 				<div class="form-group  col-md-auto">
-					<input type="text" name="armyName" class="form-control" value="Army1">
+					<input type="text" name="armyName" class="form-control" value="{{this.name}}">
 					{{!--army can be updated with {{}} to update w/ each new one--}}
 				</div>
 				<div class=" col-md-auto">
@@ -41,12 +42,12 @@
 					</div>
 				</div>
 				<div class=" col-md-auto">
-					<h4>Army Total Point Cost: x</h4>
+					<h4>Army Total Point Cost: {{this.point_total}}</h4>
 				</div>
 			</div>
 		</form>
 		<ul class="list-group">
-			<ul class="list-group-item border border-secondary">
+			<li class="list-group-item border border-secondary">
 				{{!-- SQUAD FORM --}}
 				<form action="/" method="post" class="py-2">
 					<div class="form-inline row justify-content-md-left">
@@ -71,7 +72,7 @@
 					</div>
 				</form>
 				<ul class="list-group">
-					<ul class="list-group-item border border-primary">
+					<li class="list-group-item border border-primary">
 						{{!-- SERGEANT SECTION --}}
 						<div class="d-flex flex-row">
 							<h5>Sergeant</h5>
@@ -183,8 +184,8 @@
 							</tbody>
 						</table>
 						</ul>
-					</ul>
-					<ul class="list-group-item border border-primary">
+					</li>
+					<li class="list-group-item border border-primary">
 						{{!-- Space Marines SECTION --}}
 						<div class="d-flex flex-row">
 							<h5>Space Marines</h5>
@@ -373,10 +374,10 @@
 								</tr>
 							</tbody>
 						</table>
-					</ul>
+					</li>
 				</ul>
-			</ul>
-			<ul class="list-group-item border border-secondary">
+			</li>
+			<li class="list-group-item border border-secondary">
 				{{!-- SQUAD FORM --}}
 				<form action="/" method="post" class="py-2">
 					<div class="form-inline row justify-content-md-left">
@@ -400,10 +401,11 @@
 						</div>
 					</div>
 				</form>
-			</ul>
+			</li>
 		</ul>
-	</ul>
-	<ul class="list-group-item border border-primary">
+	</li>
+	{{/each}}
+	<li class="list-group-item border border-primary">
 		{{!-- ADD TO ARMYLIST --}}
 		<form action="/" method="post" class="py-2">
 			<div class="form-inline row justify-content-md-left">
@@ -424,7 +426,7 @@
 				</div>
 			</div>
 		</form>
-	</ul>
+	</li>
 </ul>
 </table>
 

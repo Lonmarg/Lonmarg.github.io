@@ -13,18 +13,28 @@ router.get('/', function(req, res, next) {
    
     let context = {};
     context.subtitle = "pickles";
-	pool.query("SELECT * FROM armylists", function(err, result)
+	pool.query("SELECT * FROM armylists", function(err, q_armylists)
 	{
 		if(err)
 		{
 			next(err);
 			return;
 		}
-        
-        context.headertext = JSON.stringify(result);
+        context.headertext = JSON.stringify(q_armylists);
+        context.armylists = q_armylists;
 
-        res.render('home', context);
-	});
+        // res.render('home', context);
+    });
+
+    //FOR EACH ARMYLIST
+    //count number of squads and update context.armylist.numSquads
+    //add the squad to the armylist's 
+
+    //we need to make an ArmyLists_AssaultSquads table to get further than this
+    // context.armylists.array.forEach(element => {
+    //     pool.query("SELECT * FROM assaultsquads INNER JOIN WHERE ")
+    // });
+    
 
 });
 
