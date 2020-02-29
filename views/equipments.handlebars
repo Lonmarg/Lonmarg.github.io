@@ -35,41 +35,40 @@
             <th scope = "row">Is Special Equipment </th>
         </tr>
 {{!-- DISPLAY ALL CURRENT EQUIPMENTS --}}
-    {{#each equipments}}
-    <tr>
-        <td>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <form action ="/" method="post" class= "mb-4">
-                        <div class = "d-flex flex-row btn-group ">
-                            <input type="button" name="-Equipments" value="-" class="btn btn-primary">
-                        </div>
-                    </form>
+        {{#each equipments}}
+        <tr>
+            <td>
+                <form action ="/" method="post" class= "mb-4">
+                    <div class="form-group btn-group col-md-auto">
+                        <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                    </div>
+                </form>
+            </td>
+            <td>{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.point_cost}}</td>
+            <td> {{!-- IF STATEMENT HERE TO SET CHECKED OR NOT --}}
+                <div class="custom-control custom-switch ">
+                    <input type="checkbox" class="custom-control-input " id="issergeantweapon" {{#if this.is_sergeant_weapon}}checked{{/if}} name="sergeantweapon">
+                    <label class="custom-control-label" for="issergeantweapon"></label>
                 </div>
-            </form>
-        </td>
-        <td>{{equipment.id}}</td>
-        <td>{{equipment.name}}</td>
-        <td>{{equipment.cost}}</td>
-        <td> {{!-- IF STATEMENT HERE TO SET CHECKED OR NOT --}}
-            <div class="custom-control custom-switch ">
-                <input type="checkbox" class="custom-control-input " id="issergeantweapon" checked name="sergeantweapon">
-                <label class="custom-control-label" for="issergeantweapon"></label>
-            </div>
-        </td>
-        <td></td>
-    </tr>
-    {{/each}}
+            </td>
+            <td>
+                <div class="custom-control custom-switch ">
+                    <input type="checkbox" class="custom-control-input " id="issergeantweapon" {{#if this.is_special_weapon}}checked{{/if}} name="sergeantweapon">
+                    <label class="custom-control-label" for="issergeantweapon"></label>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
 {{!-- ADD MARINES --}}
         <tr>
             <form action ="/" method="post" class= "mb-4">
                 <div class="form-group">
                     <td>
                         <form action ="/" method="post" class= "mb-4">
-                            <div class = "d-flex flex-row">
-                                <div class="btn-group ">
-                                    <input type="button" name="+Equipments" value="+" class="btn btn-primary">
-                                </div>
+                            <div class="form-group btn-group col-md-auto">
+                                <input type="button" name="+Equipments" value="+" class="btn btn-primary">
                             </div>
                         </form>
                     </td>
@@ -90,7 +89,7 @@
                     </td>
                     <td>
                         <div class="custom-control custom-switch ">
-                            <input type="checkbox" class="custom-control-input " id="isspecialequipment" checked name="specialequipment">
+                            <input type="checkbox" class="custom-control-input " id="isspecialequipment" name="specialequipment">
                             <label class="custom-control-label" for="isspecialequipment"></label>
                         </div>
                     </td>

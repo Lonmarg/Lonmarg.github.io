@@ -22,19 +22,18 @@
 
 <br>
 
-<h4>My Army Lists:</h4>
+<h4>My Army Lists:{{subtitle}}</h4>
 <ul class="list-group">
 	{{#each armylists}}
 	<li class="list-group-item border border-primary">
 		{{!-- ARMY LIST FORM --}}
 		<form action="/" method="post" class="py-2">
 			<div class="form-inline row justify-content-md-left">
-				<div class="btn-group  col-md-auto">
+				<div class="btn-group col-md-auto">
 					<input type="button" name="-List" value="-" class="btn btn-primary">
 				</div>
 				<div class="form-group  col-md-auto">
 					<input type="text" name="armyName" class="form-control" value="{{this.name}}">
-					{{!--army can be updated with {{}} to update w/ each new one--}}
 				</div>
 				<div class=" col-md-auto">
 					<div class=" col-md-auto">

@@ -36,28 +36,25 @@
             <th scope = "row">Point Cost </th>
         </tr>
 {{!-- DISPLAY ALL CURRENT MARINES --}}
-    {{#each marine}}
+    {{#each spacemarines}}
     <tr>
         <td>
             <form action ="/" method="post" class= "mb-4">
                 <div class="form-group">
                     <form action ="/" method="post" class= "mb-4">
-                        <div class = "d-flex flex-row btn-group ">
+                        <div class="btn-group col-md-auto">
                             <input type="button" name="-Squad" value="-" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
             </form>
         </td>
-        <td>{{marine.spaceMarineID}}</td>
-        <td>{{marine.assaultSquadID}}</td>
-        <td>{{marine.name}}</td>
-        {{#each equipments}}
-        <td>
-            {{!-- EACH EQUIPMENTS ASSOCIATED --}}
-        </td>
-        {{/each}}
-        <td>{{marine.basePointCost}}</td>
+        <td>{{this.id}}</td>
+        <td>{{this.assaultsquadid}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.equipment1}}</td>
+        <td>{{this.equipment2}}</td>
+        <td>{{this.basePointCost}}</td>
     </tr>
     {{/each}}
 {{!-- ADD MARINES --}}
@@ -66,10 +63,8 @@
                 <div class="form-group">
                     <td>
                         <form action ="/" method="post" class= "mb-4">
-                            <div class = "d-flex flex-row">
-                                <div class="btn-group ">
-                                    <input type="button" name="+Squad" value="+" class="btn btn-primary">
-                                </div>
+                            <div class="btn-group col-md-auto">
+                                <input type="button" name="+Squad" value="+" class="btn btn-primary">
                             </div>
                         </form>
                     </td>
@@ -86,7 +81,7 @@
                         <select class="custom-select mr-sm-2" id="weapon1">
                             <option selected>Weapon1</option>
                             {{#each equipments}}
-                            <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
+                            <option value="{{equipments.id}}">{{equipments.name}}</option>
                             {{/each}}
                         </select>
                     </td>
@@ -94,7 +89,7 @@
                         <select class="custom-select mr-sm-2" id="weapon1">
                             <option selected>Weapon2</option>
                             {{#each equipments}}
-                            <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
+                            <option value="{{equipments.id}}">{{equipments.name}}</option>
                             {{/each}}
                         </select>
                     </td>

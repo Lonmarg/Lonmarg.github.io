@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 	});
    
     let context = {};
-    context.subtitle = "pickles";
+    context.subtitle = "THIS TEXT PROVES HANDLEBARS WORKS";
 	pool.query("SELECT * FROM armylists", function(err, q_armylists)
 	{
 		if(err)
@@ -20,10 +20,10 @@ router.get('/', function(req, res, next) {
 			next(err);
 			return;
 		}
-        context.headertext = JSON.stringify(q_armylists);
+        context.stringOfArmylists = JSON.stringify(q_armylists);
         context.armylists = q_armylists;
 
-        // res.render('home', context);
+        res.render('home', context);
     });
 
     //FOR EACH ARMYLIST
