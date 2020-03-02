@@ -40,7 +40,7 @@
             <td>
                 <form action ="/" method="post" class= "mb-4">
                     <div class="form-group btn-group col-md-auto">
-                        <input type="button" name="-Equipments" value="-" class="btn btn-primary">
+                        <input type="button" name="-Equipments" value="-" class="btn btn-primary" onclick="deleteEquipment({{this.id}});">
                     </div>
                 </form>
             </td>
@@ -48,49 +48,49 @@
             <td>{{this.name}}</td>
             <td>{{this.point_cost}}</td>
             <td> {{!-- IF STATEMENT HERE TO SET CHECKED OR NOT --}}
-                <div class="custom-control custom-switch ">
-                    <input type="checkbox" class="custom-control-input " id="issergeantweapon" {{#if this.is_sergeant_weapon}}checked{{/if}} name="sergeantweapon">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="issergeantweapon" {{#if this.is_sergeant_weapon}}checked{{/if}} name="sergeantweapon">
                     <label class="custom-control-label" for="issergeantweapon"></label>
                 </div>
             </td>
             <td>
-                <div class="custom-control custom-switch ">
-                    <input type="checkbox" class="custom-control-input " id="issergeantweapon" {{#if this.is_special_weapon}}checked{{/if}} name="sergeantweapon">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="issergeantweapon" {{#if this.is_special_weapon}}checked{{/if}} name="sergeantweapon">
                     <label class="custom-control-label" for="issergeantweapon"></label>
                 </div>
             </td>
         </tr>
         {{/each}}
-{{!-- ADD MARINES --}}
+{{!-- ADD NEW EQUIPMENT --}}
         <tr>
             <form action ="/" method="post" class= "mb-4">
                 <div class="form-group">
                     <td>
                         <form action ="/" method="post" class= "mb-4">
                             <div class="form-group btn-group col-md-auto">
-                                <input type="button" name="+Equipments" value="+" class="btn btn-primary">
+                                <input type="button" name="+Equipments" value="+" class="btn btn-primary" onclick="addEquipment()">
                             </div>
                         </form>
                     </td>
                     <td>1</td>
                     <td>
                         <div class="form-group ">
-                            <input type="text" name="equipmentName" class="form-control" value="Sword"> 
+                            <input type="text" id="equipmentName" name="equipmentName" class="form-control" value="Sword"> 
                         </div>
                     </td>
                     <td>
                         <input type="number" id="equipmentCost" name="equipmentCost" min="0" max="99" value = 20 value="35" class="form-control">
                     </td>
                     <td>
-                        <div class="custom-control custom-switch ">
-                            <input type="checkbox" class="custom-control-input " id="issergeantweapon" name="sergeantweapon">
-                            <label class="custom-control-label" for="issergeantweapon"></label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input " id="isSergeantWeaponAdd">
+                            <label class="custom-control-label" for="isSergeantWeaponAdd"></label>
                         </div>
                     </td>
                     <td>
-                        <div class="custom-control custom-switch ">
-                            <input type="checkbox" class="custom-control-input " id="isspecialequipment" name="specialequipment">
-                            <label class="custom-control-label" for="isspecialequipment"></label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input " id="isSpecialEquipmentAdd">
+                            <label class="custom-control-label" for="isSpecialEquipmentAdd"></label>
                         </div>
                     </td>
                 </div>
@@ -98,3 +98,9 @@
         </tr>
     </tbody>
 </table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+{{#each jsscripts}}
+	<script src="/{{this}}"></script>
+{{/each}}

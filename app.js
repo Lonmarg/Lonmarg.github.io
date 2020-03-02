@@ -7,6 +7,7 @@ const path = require('path');
 const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'handlebars');
 
 //Setup Routes
@@ -16,7 +17,7 @@ const spacemarinesRouter = require('./routes/spacemarines')
 const sergeantsRouter = require('./routes/sergeants')
 
 // Server credentials
-// const mysql = require('mysql');
+//const mysql = require('mysql');
 // const pool = mysql.createPool({
 //     connectionLimit: 10,
 //     host: 'classmysql.engr.oregonstate.edu',
@@ -26,7 +27,7 @@ const sergeantsRouter = require('./routes/sergeants')
 // });
 
 //set port to use and console message to remind how to end process
-app.set('port', 4361);
+app.set('port', 50507);
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
