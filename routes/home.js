@@ -98,13 +98,22 @@ router.get('/', function(req, res, next) {
 	promiseGetArmylists().then(function(context){
 		return promiseGetSquads(context);
 	}).then(function(context){
-		return promiseGetMarines(context);	
-	}).then(function(context){
 		console.log("the whole thing out of loop is ");
 		console.log(context);
 		// context.stringOfArmylists = JSON.stringify(context);
 		res.render('home', context);
 	})
+
+	// promiseGetArmylists().then(function(context){
+	// 	return promiseGetSquads(context);
+	// }).then(function(context){
+	// 	return promiseGetMarines(context);	
+	// }).then(function(context){
+	// 	console.log("the whole thing out of loop is ");
+	// 	console.log(context);
+	// 	// context.stringOfArmylists = JSON.stringify(context);
+	// 	res.render('home', context);
+	// })
 
 	// promiseGetArmylists.then(function(context){
 	// 	//context.armylists.forEach(armylist => {
