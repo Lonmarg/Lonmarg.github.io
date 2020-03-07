@@ -32,14 +32,14 @@ router.get('/', function(req, res, next) {
 	let promiseGetSquads = function(context){
 		let sql = "SELECT * FROM armylists_assaultsquads "+
 		"INNER JOIN assaultsquads ON (armylists_assaultsquads.assaultsquadid = assaultsquads.id) " +
-		"WHERE armylists_assaultsquads.armylistid = 1";
+		"WHERE armylists_assaultsquads.armylistid = (?)";
 		console.log("promiseGetSquads");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
 			completedQueries = 0;
 			for(let i=0; i< context.armylists.length; i++){
 				queriesToComplete +=1;
-				pool.query(sql, function(err, q_assaultsquads){ //REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+				pool.query(sql, [context.armylists[i].id], function(err, q_assaultsquads){ //REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 					if(err){
 						console.log("error in query to get assault squads");
 						next(err);
@@ -60,7 +60,7 @@ router.get('/', function(req, res, next) {
 	let promiseGetMarines = function(context){
 		let sql = "SELECT * FROM assaultsquads_spacemarines "+
 		"INNER JOIN spacemarines ON (assaultsquads_spacemarines.spacemarineid = spacemarines.id ) " +
-		"WHERE assaultsquads_spacemarines.assaultsquadid = 1";
+		"WHERE assaultsquads_spacemarines.assaultsquadid = (?)";
 		console.log("promiseGetMarines");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -68,7 +68,7 @@ router.get('/', function(req, res, next) {
 			for(let i=0; i< context.armylists.length; i++){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					queriesToComplete +=1;
-					pool.query(sql, function(err, q_spacemarines){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+					pool.query(sql, [context.armylists[i].assaultsquads[j].assaultsquadid], function(err, q_spacemarines){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 						if(err){
 							console.log("error in query to get marines in assault squads");
 							reject();
@@ -91,7 +91,7 @@ router.get('/', function(req, res, next) {
 		let sql = "SELECT equipments.name FROM spacemarines_equipments "+
 		"INNER JOIN spacemarines ON (spacemarines_equipments.spacemarineid = spacemarines.id ) " +
 		"INNER JOIN equipments ON (spacemarines_equipments.equipmentid = equipments.id ) " +
-		"WHERE spacemarines_equipments.spacemarineid = 1";
+		"WHERE spacemarines_equipments.spacemarineid = (?)";
 		console.log("promiseGetMarineWeapons");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -100,7 +100,7 @@ router.get('/', function(req, res, next) {
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					for(let k=0; k<context.armylists[i].assaultsquads[j].spacemarines.length; k++){
 						queriesToComplete +=1;
-						pool.query(sql, function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].spacemarines[k].id], function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 							if(err){
 								console.log("error in query to get marine weapons");
 								reject();
@@ -120,7 +120,7 @@ router.get('/', function(req, res, next) {
 	};
 
 	let promiseGetSergeants = function(context){
-		let sql = "SELECT * FROM sergeants WHERE sergeants.assaultsquadid = 1";
+		let sql = "SELECT * FROM sergeants WHERE sergeants.assaultsquadid = (?)";
 		console.log("promiseGetSergeants");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -128,7 +128,7 @@ router.get('/', function(req, res, next) {
 			for(let i=0; i< context.armylists.length; i++){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					queriesToComplete +=1;
-					pool.query(sql, function(err, q_sergeants){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+					pool.query(sql, [context.armylists[i].assaultsquads[j].id], function(err, q_sergeants){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 						if(err){
 							console.log("error in query to get sergeants in assault squads");
 							reject();
@@ -150,7 +150,7 @@ router.get('/', function(req, res, next) {
 		let sql = "SELECT equipments.id, equipments.name FROM sergeants_equipments "+
 		"INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id ) " +
 		"INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id ) " +
-		"WHERE sergeants_equipments.sergeantid = 1 AND NOT (equipments.is_sergeant_weapon = 0 AND equipments.is_special_weapon = 1)";
+		"WHERE sergeants_equipments.sergeantid = (?) AND NOT (equipments.is_sergeant_weapon = 0 AND equipments.is_special_weapon = 1)";
 		console.log("promiseGetSergeantWeapons");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -159,7 +159,7 @@ router.get('/', function(req, res, next) {
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					for(let k=0; k<context.armylists[i].assaultsquads[j].sergeants.length; k++){
 						queriesToComplete +=1;
-						pool.query(sql, function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 							if(err){
 								console.log("error in query to get sergeant weapons");
 								reject();
@@ -183,7 +183,7 @@ router.get('/', function(req, res, next) {
 		let sql = "SELECT equipments.id, equipments.name, equipments.point_cost FROM sergeants_equipments "+
 		"INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id ) " +
 		"INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id) " +
-		"WHERE equipments.is_special_weapon = 1 AND equipments.is_sergeant_weapon = 0 AND sergeants_equipments.sergeantid = 1";
+		"WHERE equipments.is_special_weapon = 1 AND equipments.is_sergeant_weapon = 0 AND sergeants_equipments.sergeantid = (?)";
 		console.log("promiseGetSergeantSpecialEquipments");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -192,7 +192,7 @@ router.get('/', function(req, res, next) {
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					for(let k=0; k<context.armylists[i].assaultsquads[j].sergeants.length; k++){
 						queriesToComplete +=1;
-						pool.query(sql, function(err, q_specials){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_specials){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
 							if(err){
 								console.log("error in query to get special weapons");
 								reject();
