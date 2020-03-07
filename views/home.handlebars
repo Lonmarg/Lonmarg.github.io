@@ -41,7 +41,10 @@
 					</div>
 				</div>
 				<div class=" col-md-auto">
-					<h4>Army Total Point Cost: {{this.point_total}}</h4>
+					<h4>Cost: {{this.point_total}}</h4>
+				</div>
+				<div class="btn-group col-md-auto">
+					<input type="button" name="update" value="Update" class="btn btn-primary">
 				</div>
 			</div>
 		</form>
@@ -59,11 +62,11 @@
 						</div>
 						<div class=" col-md-auto">
 							{{!-- NOTE: THIS NEEDS TO SOMEHOW BE UPDATED TO REPRESENT THE ADDITION OF SERGEANTS AS WELL --}}
-							<h4>Squad Members: {{this.space_marines_count}} </h4>
+							<h4>Members: {{this.space_marines_count}} </h4>
 						</div>
 						<div class=" col-md-auto">
 							{{!-- NOTE: THIS NEEDS SOME BACKEND WORK TO CALCULATE THE TOTAL POINT COST PER SQUAD --}}
-							<h4>Total Squad Point Cost: x</h4>
+							<h4>Cost: x</h4>
 						</div>
 						<div class=" col-md-auto">
 							<div class="custom-control custom-switch ">
@@ -73,6 +76,9 @@
 									<h4>Jumppacks</h4>
 								</label>
 							</div>
+						</div>
+						<div class="btn-group col-md-auto">
+							<input type="button" name="update" value="Update" class="btn btn-primary">
 						</div>
 					</div>
 				</form>
@@ -94,6 +100,7 @@
 									<th scope="row">Equipment 1</th>
 									<th scope="row">Equipment 2</th>
 									<th scope="row">Point Cost</th>
+									<th scope="row">Update</th>
 								</tr>
 								{{!-- SERGEANT EQUIPMENT TABLE CONTENT --}}
 								<tr>
@@ -120,6 +127,16 @@
 											{{/each}}
 											<td>{{this.point_cost}}</td>
 										</div>
+										<td>
+											<form action="/" method="post" class="">
+												<div class="d-flex flex-row">
+													<div class="btn-group ">
+														<input type="button" name="update" value="Update"
+															class="btn btn-primary">
+													</div>
+												</div>
+											</form>
+										</td>
 									</form>
 								</tr>
 							</tbody>
@@ -133,6 +150,7 @@
 									<th scope="row">ID</th>
 									<th scope="row">Special Equipment</th>
 									<th scope="row">Point Cost</th>
+									<th scope="row">Update</th>
 								</tr>
 								{{!-- SPECIAL EQUIPMENT CONTENT--}}
 								{{#if this.specials}}
@@ -162,6 +180,16 @@
 											</td>
 											{{/each}}
 											<td>{{this.point_cost}}</td>
+											<td>
+												<form action="/" method="post" class="">
+													<div class="d-flex flex-row">
+														<div class="btn-group ">
+															<input type="button" name="update" value="Update"
+																class="btn btn-primary">
+														</div>
+													</div>
+												</form>
+											</td>
 										</div>
 									</form>
 								</tr>
@@ -211,6 +239,7 @@
 									<th scope="row">Equipment 1</th>
 									<th scope="row">Equipment 2</th>
 									<th scope="row">Point Cost</th>
+									<th scope="row">Update</th>
 								</tr>
 								{{!-- Space Marines TABLE CONTENT --}}
 								{{#each this.spacemarines}}
@@ -240,6 +269,16 @@
 											</td>
 											{{/each}}
 											<td>{{this.point_cost}}</td>
+											<td>
+												<form action="/" method="post" class="">
+													<div class="d-flex flex-row">
+														<div class="btn-group ">
+															<input type="button" name="update" value="Update"
+																class="btn btn-primary">
+														</div>
+													</div>
+												</form>
+											</td>
 										</div>
 									</form>
 								</tr>
