@@ -16,16 +16,6 @@ const equipmentsRouter = require('./routes/equipments');
 const spacemarinesRouter = require('./routes/spacemarines')
 const sergeantsRouter = require('./routes/sergeants')
 
-// Server credentials
-//const mysql = require('mysql');
-// const pool = mysql.createPool({
-//     connectionLimit: 10,
-//     host: 'classmysql.engr.oregonstate.edu',
-//     user: 'cs340_wellheup',
-//     password: 'Akirr@5t@r5und3r',
-//     database: 'cs340_wellheup'
-// });
-
 //set port to use and console message to remind how to end process
 app.set('port', 50507);
 app.listen(app.get('port'), function() {
@@ -36,6 +26,7 @@ app.listen(app.get('port'), function() {
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+//app.use(bodyParser);
 
 // Assign routes
 app.use('/', homeRouter);

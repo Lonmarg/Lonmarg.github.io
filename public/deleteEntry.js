@@ -19,20 +19,25 @@ function addEquipment(name, pointCost, isSergeantWeapon, isSpecialWeapon)
 	var sergWeapon = document.getElementById("isSergeantWeaponAdd").checked;
 	var specEquip = document.getElementById("isSpecialEquipmentAdd").checked;
 	
-	console.log('Name: ' + name + ' Cost: ' + cost + ' SergWeapon: ' + sergWeapon + ' SpecEquip: ' + specEquip);
+	if(sergWeapon == true)
+	{
+		sergWeapon = 1;
+	}
+	
+	if(specEquip == true)
+	{
+		specEquip = 1;
+	}
 	
 	$.ajax({
 		url: '/equipments/add',
 		type: 'POST',
-		data: JSON.stringify({ name: name, cost: cost, sergWeapon: sergWeapon, specEquip: specEquip }),
-		dataType: 'json',
+		data: { name: name, cost: cost, sergWeapon: sergWeapon, specEquip: specEquip },
 		success: function(result){
 			window.location.reload(true);
 		},
 		error: function(result, textStatus) {
 			alert(textStatus);
 		}
-	})
-	
-		
+	})	
 }

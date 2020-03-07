@@ -49,14 +49,14 @@
             <td>{{this.point_cost}}</td>
             <td> {{!-- IF STATEMENT HERE TO SET CHECKED OR NOT --}}
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="issergeantweapon" {{#if this.is_sergeant_weapon}}checked{{/if}} name="sergeantweapon">
-                    <label class="custom-control-label" for="issergeantweapon"></label>
+                    <input type="checkbox" class="custom-control-input" id="issergeantweapon{{this.id}}" {{#if this.is_sergeant_weapon}}checked{{/if}} name="sergeantweapon">
+                    <label class="custom-control-label" for="issergeantweapon{{this.id}}"></label>
                 </div>
             </td>
             <td>
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="issergeantweapon" {{#if this.is_special_weapon}}checked{{/if}} name="sergeantweapon">
-                    <label class="custom-control-label" for="issergeantweapon"></label>
+                    <input type="checkbox" class="custom-control-input" id="isspecialweapon{{this.id}}" {{#if this.is_special_weapon}}checked{{/if}} name="sergeantweapon">
+                    <label class="custom-control-label" for="isspecialweapon{{this.id}}"></label>
                 </div>
             </td>
         </tr>
