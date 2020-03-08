@@ -17,7 +17,7 @@ const spacemarinesRouter = require('./routes/spacemarines')
 const sergeantsRouter = require('./routes/sergeants')
 
 //set port to use and console message to remind how to end process
-app.set('port', 50507);
+app.set('port', 4361);
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
@@ -47,6 +47,11 @@ app.use(function(err, req, res, next) {
     res.render('500');
 });
 
+app.get('/', function(req, res, next){
+    context = {};
+    context.planSubtitle = req.query.myData;
+    res.render('home', context);
+})
 
 //Needed for routes, no idea what this does
 module.exports = app;
