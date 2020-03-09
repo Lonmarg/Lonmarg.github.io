@@ -37,7 +37,7 @@
             <th scope = "row">Point Cost </th>
         </tr>
 {{!-- DISPLAY ALL CURRENT SERGEANTS --}}
-        {{#each sergeants}}
+        {{#each sergeantsList}}
         <tr>
             <td>
                 <form action ="/" method="post" class= "mb-4">
@@ -53,9 +53,56 @@
             <td>{{this.id}}</td>
             <td>{{this.assaultsquadid}}</td>
             <td>{{this.name}}</td>
-            <td>{{this.equipment1}}</td>
-            <td>{{this.equipment2}}</td>
-            <td></td>
+			{{#if this.hasEquipment}}
+				{{#if this.onlyOne}}
+					<td>
+					<select class="custom-select mr-sm-2" id="curWeapon1">
+						<option selected>{{this.sergeants_equipments.name}}</option>
+						{{#each possible_equipments}}
+							<option value="{{this.id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+					</td>
+					<td>
+					<select class="custom-select mr-sm-2" id="noWeapon1">
+						<option selected>Jimbob</option>
+						{{#each possible_equipments}}
+							<option value="{{this.id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+					</td>
+				{{else}}
+					{{#each this.sergeants_equipments}}
+					<td>
+					<select class="custom-select mr-sm-2" id="curWeapon1">
+						<option selected>{{this.name}}</option>
+						{{#each possible_equipments}}
+							<option value="{{this.id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+					</td>
+					{{/each}}
+				{{/if}}
+			
+			{{else}}
+				<td>
+					<select class="custom-select mr-sm-2" id="noWeapon1">
+						<option selected>No Dice</option>
+						{{#each ../possible_equipments}}
+							<option value="{{this.id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+				</td>
+				
+				<td>
+					<select class="custom-select mr-sm-2" id="noWeapon1">
+						<option selected>No Dice</option>
+						{{#each ../possible_equipments}}
+							<option value="{{this.id}}">{{this.name}}</option>
+						{{/each}}
+					</select>
+				</td>
+			{{/if}}
             <td>{{this.base_point_cost}}</td>
         </tr>
         {{/each}}
@@ -113,3 +160,20 @@
         </tr>
     </tbody>
 </table>
+
+<script>
+function findEquipment(sergeantID)
+{
+	console.log(sergeantID);
+	/*if(sergeantID == {{#each sergeants_equipments}}{{this.sergeantid}}{{/each}})
+	{
+		{{#each equipments}}
+			if({{this.id}} == {{#each ../sergeants_equipments}}{{this.equipmentid}}{{/each}})
+			{
+				console.log("{{this.name}}");
+				return "{{this.name}}";
+			}
+		{{/each}}
+	}*/
+}
+</script>
