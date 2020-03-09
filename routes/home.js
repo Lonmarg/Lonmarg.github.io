@@ -25,45 +25,47 @@ router.post('/', function(req, res, next) {
 		addArmylist(req, res, next);
 	}
 	else if(req.body.updateAssaultSquad){
-
+		updateAssaultSquad(req, res, next);
 	}
 	else if(req.body.removeAssaultSquad){
-
+		removeAssaultSquad(req, res, next);
 	}
 	else if(req.body.addAssaultSquad){
-
+		addAssaultSquad(req, res, next);
 	}
-	else if(req.body.updateSergeant){
+	// else if(req.body.updateSergeant){
 
-	}
-	else if(req.body.removeSergeant){
+	// }
+	// else if(req.body.removeSergeant){
 
-	}
+	// }
 	else if(req.body.addSergeant){
+		addSergeant(req, res, next);
+	}
+	// else if(req.body.removeSpecialEquipment){
+	// 	//this should associate/dissociate the equip from the unit
+	// }
+	// else if(req.body.addSpecialEquipment){
+	// 	//this should associate/dissociate the equip from the unit
+	// }
+	// else if(req.body.updateMarine){
 
-	}
-	else if(req.body.removeSpecialEquipment){
-		//this should associate/dissociate the equip from the unit
-	}
-	else if(req.body.addSpecialEquipment){
-		//this should associate/dissociate the equip from the unit
-	}
-	else if(req.body.updateMarine){
+	// }
+	// else if(req.body.removeMarine){
 
-	}
-	else if(req.body.removeMarine){
+	// }
+	// else if(req.body.addMarine){
 
-	}
-	else if(req.body.addMarine){
-
+	// }
+	else{
+	renderHomeContext(res, next);
 	}
 
-	//renderHomeContext(res, next);
 });
 
 function renderHomeContext(res, next){
 	let context = {};
-	context.subtitle = "pulldowns, UPDATES, DELETES not yet fully implemented";
+	context.subtitle = "pulldowns, and add/remove/updating marines or sergants still don't work";
 	// FIND ALL ARMYLISTS
 	let promiseGetArmylists = function(){
 		let sql = "SELECT * FROM armylists";
@@ -398,15 +400,21 @@ function addArmylist(req, res, next){
 }
 
 function updateAssaultSquad(req, res, next){
-	pool.query("SELECT * FROM armylists WHERE id=?", [req.body.id], function(err, result){
+	pool.query("SELECT * FROM assaultsquads WHERE id=?", [req.body.id], function(err, result){
 		if(err){
 			next(err);
 			return;
 		}
 		if(result.length == 1){
 			let curVals = result[0];
-			pool.query("UPDATE armylists SET name=? WHERE id=?",
-				[req.body.armyName || curVals.name, req.body.id],
+			if(req.body.hasjumppacks == 'on'){
+				req.body.hasjumppacks = 1;
+			}
+			else{
+				req.body.hasjumppacks = 0;
+			}
+			pool.query("UPDATE assaultsquads SET name=?, has_jumppacks=? WHERE id=?",
+				[req.body.squadName || curVals.name, req.body.hasjumppacks, req.body.id],
 				function(err, result){
 				if(err){
 					next(err);
@@ -415,6 +423,143 @@ function updateAssaultSquad(req, res, next){
 				renderHomeContext(res, next);
 			});
 		}
+	});
+}
+
+function removeAssaultSquad(req, res, next){
+	pool.query("SELECT * FROM assaultsquads WHERE assaultsquads.id=?", [req.body.id], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			pool.query("DELETE FROM assaultsquads WHERE assaultsquads.id=?",	[req.body.id], function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				renderHomeContext(res, next);
+			});
+		}
+	});
+}
+
+function addAssaultSquad(req, res, next){
+	if(req.body.hasjumppacks == 'on'){
+		req.body.hasjumppacks = 1;
+	}
+	else{
+		req.body.hasjumppacks = 0;
+	}
+	pool.query("INSERT INTO assaultsquads (assaultsquads.name, assaultsquads.has_jumppacks) VALUES (?, ?)",
+		[req.body.squadName, req.body.hasjumppacks],
+		function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		pool.query("INSERT INTO armylists_assaultsquads (armylistid, assaultsquadid) VALUES (?, ?)",
+			[req.body.armylistid, result.insertId],
+			function(err, result){
+			if(err){
+				next(err);
+				return;
+			}
+			renderHomeContext(res, next);
+		});
+	});
+}
+
+function updateSergeant(req, res, next){
+	pool.query("SELECT * FROM sergeants WHERE id=?", [req.body.id], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			pool.query("UPDATE sergeants SET name=? WHERE id=?",
+				[req.body.sergeantName || curVals.name, req.body.id],
+				function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				
+				//query sergeants_equipments about entry with sergeantid and weaponid
+				//update that weaponid to be new one
+				pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, ], function(err, result){
+					if(err){
+						next(err);
+						return;
+					}
+					if(result.length == 1){
+						let curVals = result[0];
+						pool.query("UPDATE sergeants SET name=? WHERE id=?",
+							[req.body.squadName || curVals.name, req.body.id],
+							function(err, result){
+							if(err){
+								next(err);
+								return;
+							}
+							
+							//query sergeants_equipments about entry with sergeantid and weaponid
+							//update that weaponid to be new one
+							renderHomeContext(res, next);
+						});
+					}
+				});
+			});
+		}
+	});
+}
+
+function removeSergeant(req, res, next){
+	pool.query("SELECT * FROM sergeants WHERE sergeants.id=?", [req.body.id], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			pool.query("DELETE FROM sergeants WHERE sergeants.id=?",	[req.body.id], function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				renderHomeContext(res, next);
+			});
+		}
+	});
+}
+
+function addSergeant(req, res, next){
+	pool.query("INSERT INTO sergeants (sergeants.name, sergeants.assaultsquadid) VALUES (?, ?)",
+		[req.body.sergeantName, req.body.assaultsquadid],
+		function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		newSergent = result;
+		pool.query("INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)",
+			[newSergent.insertId, req.body.weapon1],
+			function(err, result){
+			if(err){
+				next(err);
+				return;
+			}
+			pool.query("INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)",
+				[newSergent.insertId, req.body.weapon2],
+				function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				renderHomeContext(res, next);
+			});
+		});
 	});
 }
 
