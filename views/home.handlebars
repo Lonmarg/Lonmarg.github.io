@@ -90,13 +90,13 @@
 												class="form-control"></td>
 										{{#each this.weapons}}
 										<td>
-											{{!-- DOES NOT WORK. SOLUTION MAY BE HERE https://gist.github.com/LukeChannings/6173ab951d8b1dc4602e --}}
-											{{!-- THIS MAY ALSO BE A SOLUTION, BUT IT'S NOT MY FAVORITE https://www.youtube.com/watch?v=HMehtL39VUQ --}}
-											<select class="custom-select mr-sm-2" id="weaddpon1">
-												<option selected>{{this.name}}</option>
-												<option value="99">test</option>
-												{{#each possibleSergeantWeapons}}
-												<option value="{{this.id}}">{{this.name}}</option>
+											<input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
+											<select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleSergeantWeapons">
+												<option value="{{this.id}}" disabled selected>{{this.name}}</option>
+												{{#each ../../../../this.possibleSergeantWeapons}}
+												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+													<option value="{{this.id}}">{{this.name}}</option>
+												{{!-- {{/select}} --}}
 												{{/each}}
 											</select>
 										</td>
@@ -190,22 +190,20 @@
 										<td><input type="text" name="sergeantName" value="Sergeant Name"
 												class="form-control"></td>
 										<td>
-											{{!-- DOES NOT WORK. SOLUTION MAY BE HERE https://gist.github.com/LukeChannings/6173ab951d8b1dc4602e --}}
-											{{!-- THIS MAY ALSO BE A SOLUTION, BUT IT'S NOT MY FAVORITE https://www.youtube.com/watch?v=HMehtL39VUQ --}}
-											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
-												<option value="1">test</option>
-												{{#each possibleSergeantWeapons}}
-												<option value="{{this.id}}">{{this.name}}</option>
+											<select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
+												{{#each ../../this.possibleSergeantWeapons}}
+												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+													<option value="{{this.id}}">{{this.name}}</option>
+												{{!-- {{/select}} --}}
 												{{/each}}
 											</select>
 										</td>
 										<td>
-											{{!-- DOES NOT WORK. SOLUTION MAY BE HERE https://gist.github.com/LukeChannings/6173ab951d8b1dc4602e --}}
-											{{!-- THIS MAY ALSO BE A SOLUTION, BUT IT'S NOT MY FAVORITE https://www.youtube.com/watch?v=HMehtL39VUQ --}}
-											<select class="custom-select mr-sm-2" name="weapon2" id="weapon2">
-												<option value="2">test</option>
-												{{#each possibleSergeantWeapons}}
-												<option value="{{this.id}}">{{this.name}}</option>
+											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
+												{{#each ../../this.possibleSergeantWeapons}}
+												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+													<option value="{{this.id}}">{{this.name}}</option>
+												{{!-- {{/select}} --}}
 												{{/each}}
 											</select>
 										</td>

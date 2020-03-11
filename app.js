@@ -4,11 +4,16 @@ const app = express();
 const path = require('path');
 
 //set up handlebars
-const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
+//const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
+const handlebars = require('express-handlebars').create({
+    defaultLayout: 'main',
+    helpers: require(path.join(__dirname, 'helpers/selectHelper'))
+});
 app.engine('handlebars', handlebars.engine);
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
+//app.set('helpers', path.join(dirname, 'helpers'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 //Setup Routes
 const homeRouter = require('./routes/home');

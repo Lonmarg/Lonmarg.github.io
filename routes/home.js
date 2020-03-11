@@ -33,12 +33,12 @@ router.post('/', function(req, res, next) {
 	else if(req.body.addAssaultSquad){
 		addAssaultSquad(req, res, next);
 	}
-	// else if(req.body.updateSergeant){
-
-	// }
-	// else if(req.body.removeSergeant){
-
-	// }
+	else if(req.body.updateSergeant){
+		updateSergeant(req, res, next)
+	}
+	else if(req.body.removeSergeant){
+		removeSergeant(req, res, next)
+	}
 	else if(req.body.addSergeant){
 		addSergeant(req, res, next);
 	}
@@ -343,6 +343,7 @@ function renderHomeContext(res, next){
 	}).then(function(context){
 		return promiseGetPossibleSpecialWeapons(context);	
 	}).then(function(context){
+		console.log(context.possibleSergeantWeapons.length);
 		res.render('home', context);
 	});
 }
@@ -472,6 +473,8 @@ function addAssaultSquad(req, res, next){
 }
 
 function updateSergeant(req, res, next){
+	console.log(req.body);
+	//find the sergeant to update
 	pool.query("SELECT * FROM sergeants WHERE id=?", [req.body.id], function(err, result){
 		if(err){
 			next(err);
@@ -479,6 +482,7 @@ function updateSergeant(req, res, next){
 		}
 		if(result.length == 1){
 			let curVals = result[0];
+			//update the sergeant's name
 			pool.query("UPDATE sergeants SET name=? WHERE id=?",
 				[req.body.sergeantName || curVals.name, req.body.id],
 				function(err, result){
@@ -486,30 +490,62 @@ function updateSergeant(req, res, next){
 					next(err);
 					return;
 				}
-				
-				//query sergeants_equipments about entry with sergeantid and weaponid
-				//update that weaponid to be new one
-				pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, ], function(err, result){
-					if(err){
-						next(err);
-						return;
-					}
-					if(result.length == 1){
-						let curVals = result[0];
-						pool.query("UPDATE sergeants SET name=? WHERE id=?",
-							[req.body.squadName || curVals.name, req.body.id],
-							function(err, result){
-							if(err){
-								next(err);
-								return;
-							}
-							
-							//query sergeants_equipments about entry with sergeantid and weaponid
-							//update that weaponid to be new one
-							renderHomeContext(res, next);
-						});
-					}
-				});
+				if(req.body.currentWeapon0 != req.body.newWeapon0 || req.body.currentWeapon1 != req.body.newWeapon1){
+					//find an equipment associated with the sergeant that matches weapon0 by id
+					pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon0], function(err, result){
+						if(err){
+							next(err);
+							return;
+						}
+						if(result.length == 1 || result.length==2){
+							//update equipment associated with the sergeant that matches weapon0 by id
+							let curVals = result[0];
+							pool.query("UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1",
+								[req.body.newWeapon0 || curVals.equipmentid, curVals.sergeantid, curVals.equipmentid],
+								function(err, result){
+								if(err){
+									next(err);
+									return;
+								}
+								console.log('updated weapon0');
+								if(req.body.currentWeapon1 != req.body.newWeapon1){
+									//find an equipment associated with the sergeant that matches weapon1 by id
+									pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon1], function(err, result){
+										if(err){
+											next(err);
+											return;
+										}
+										console.log('found weapon1');
+										if(result.length == 1 || result.length==2){
+											console.log('trying to update weapon1');
+											let curVals = result[0];
+											//update equipment associated with the sergeant that matches weapon1 by id
+											pool.query("UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1",
+												[req.body.newWeapon1 || curVals.equipmentid, curVals.sergeantid, curVals.equipmentid],
+												function(err, result){
+												if(err){
+													next(err);
+													return;
+												}
+												console.log('updated weapon1');
+												renderHomeContext(res, next);
+											});
+										}
+										else{
+											renderHomeContext(res, next);
+										}
+									});
+								}
+								else{
+									renderHomeContext(res, next);
+								}
+							});
+						}
+					});
+				}
+				else{
+					renderHomeContext(res, next);
+				}
 			});
 		}
 	});
@@ -544,14 +580,14 @@ function addSergeant(req, res, next){
 		}
 		newSergent = result;
 		pool.query("INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)",
-			[newSergent.insertId, req.body.weapon1],
+			[newSergent.insertId, req.body.weapon0 || 1],
 			function(err, result){
 			if(err){
 				next(err);
 				return;
 			}
 			pool.query("INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)",
-				[newSergent.insertId, req.body.weapon2],
+				[newSergent.insertId, req.body.weapon1 || 2],
 				function(err, result){
 				if(err){
 					next(err);
@@ -562,5 +598,7 @@ function addSergeant(req, res, next){
 		});
 	});
 }
+
+//
 
 module.exports = router;
