@@ -42,23 +42,26 @@ router.post('/', function(req, res, next) {
 	else if(req.body.addSergeant){
 		addSergeant(req, res, next);
 	}
-	// else if(req.body.removeSpecialEquipment){
-	// 	//this should associate/dissociate the equip from the unit
-	// }
-	// else if(req.body.addSpecialEquipment){
-	// 	//this should associate/dissociate the equip from the unit
-	// }
-	// else if(req.body.updateMarine){
-
-	// }
-	// else if(req.body.removeMarine){
-
-	// }
-	// else if(req.body.addMarine){
-
-	// }
+	else if(req.body.updateSpecialEquipment){
+		updateSpecialEquipment(req, res, next);
+	}
+	else if(req.body.removeSpecialEquipment){
+		removeSpecialEquipment(req, res, next);
+	}
+	else if(req.body.addSpecialEquipment){
+		addSpecialEquipment(req, res, next);
+	}
+	else if(req.body.updateSpaceMarine){
+		updateSpaceMarine(req, res, next);
+	}
+	else if(req.body.removeSpaceMarine){
+		removeSpaceMarine(req, res, next);
+	}
+	else if(req.body.addSpaceMarine){
+		addSpaceMarine(req, res, next);
+	}
 	else{
-	renderHomeContext(res, next);
+		renderHomeContext(res, next);
 	}
 
 });
@@ -142,7 +145,7 @@ function renderHomeContext(res, next){
 	};
 
 	let promiseGetMarineWeapons = function(context){
-		let sql = "SELECT equipments.name FROM spacemarines_equipments "+
+		let sql = "SELECT equipments.id, equipments.name FROM spacemarines_equipments "+
 		"INNER JOIN spacemarines ON (spacemarines_equipments.spacemarineid = spacemarines.id ) " +
 		"INNER JOIN equipments ON (spacemarines_equipments.equipmentid = equipments.id ) " +
 		"WHERE spacemarines_equipments.spacemarineid = (?)";
@@ -308,7 +311,7 @@ function renderHomeContext(res, next){
 
 	let promiseGetPossibleSpecialWeapons = function(context){
 		let sql = "SELECT equipments.id, equipments.name, equipments.point_cost FROM equipments " +
-		"WHERE equipments.is_special_weapon = 0 and equipments.is_sergeant_weapon = 0";
+		"WHERE equipments.is_special_weapon = 1 and equipments.is_sergeant_weapon = 0";
 		//console.log("promiseGetPossibleSpecialWeapons");
 		return new Promise(function(resolve, reject){
 			pool.query(sql, function(err, q_possibleSpecialWeapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
@@ -473,7 +476,6 @@ function addAssaultSquad(req, res, next){
 }
 
 function updateSergeant(req, res, next){
-	console.log(req.body);
 	//find the sergeant to update
 	pool.query("SELECT * FROM sergeants WHERE id=?", [req.body.id], function(err, result){
 		if(err){
@@ -507,7 +509,6 @@ function updateSergeant(req, res, next){
 									next(err);
 									return;
 								}
-								console.log('updated weapon0');
 								if(req.body.currentWeapon1 != req.body.newWeapon1){
 									//find an equipment associated with the sergeant that matches weapon1 by id
 									pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon1], function(err, result){
@@ -515,9 +516,7 @@ function updateSergeant(req, res, next){
 											next(err);
 											return;
 										}
-										console.log('found weapon1');
 										if(result.length == 1 || result.length==2){
-											console.log('trying to update weapon1');
 											let curVals = result[0];
 											//update equipment associated with the sergeant that matches weapon1 by id
 											pool.query("UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1",
@@ -527,7 +526,6 @@ function updateSergeant(req, res, next){
 													next(err);
 													return;
 												}
-												console.log('updated weapon1');
 												renderHomeContext(res, next);
 											});
 										}
@@ -541,12 +539,20 @@ function updateSergeant(req, res, next){
 								}
 							});
 						}
+						else{
+							console.log("error in updating sergeant");
+							renderHomeContext(res, next);
+						}
 					});
 				}
 				else{
 					renderHomeContext(res, next);
 				}
 			});
+		}
+		else{
+			console.log("error in updating sergeant");
+			renderHomeContext(res, next);
 		}
 	});
 }
@@ -559,7 +565,7 @@ function removeSergeant(req, res, next){
 		}
 		if(result.length == 1){
 			let curVals = result[0];
-			pool.query("DELETE FROM sergeants WHERE sergeants.id=?",	[req.body.id], function(err, result){
+			pool.query("DELETE FROM sergeants WHERE sergeants.id=?", [req.body.id], function(err, result){
 				if(err){
 					next(err);
 					return;
@@ -599,6 +605,196 @@ function addSergeant(req, res, next){
 	});
 }
 
-//
+function updateSpecialEquipment(req, res, next){
+	pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		console.log("found special equipment");
+		if(result.length >= 1){
+			let curVals = result[0];
+			//update equipment associated with the sergeant that matches weapon1 by id
+			pool.query("UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1",
+				[req.body.newWeapon || curVals.equipmentid, curVals.sergeantid, curVals.equipmentid],
+				function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				console.log("updated special equipment");
+				renderHomeContext(res, next);
+			});
+		}
+		else{
+			renderHomeContext(res, next);
+		}
+	});
+}
+
+function removeSpecialEquipment(req, res, next){
+	pool.query("SELECT * FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			pool.query("DELETE FROM sergeants_equipments WHERE sergeantid=? AND equipmentid=? LIMIT 1",	[req.body.id, req.body.currentWeapon], function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				renderHomeContext(res, next);
+			});
+		}
+	});
+}
+
+function addSpecialEquipment(req, res, next){
+	pool.query("INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)",
+		[req.body.id, req.body.newWeapon],
+		function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		renderHomeContext(res, next);
+	});
+}
+
+function updateSpaceMarine(req, res, next){
+	//find the marine to update
+	pool.query("SELECT * FROM spacemarines WHERE id=?", [req.body.id], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			if(req.body.currentWeapon0 != req.body.newWeapon0 || req.body.currentWeapon1 != req.body.newWeapon1){
+				//find an equipment associated with the marine that matches weapon0 by id
+				pool.query("SELECT * FROM spacemarines_equipments WHERE spacemarineid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon0], function(err, result){
+					if(err){
+						next(err);
+						return;
+					}
+					if(result.length == 1 || result.length==2){
+						//update equipment associated with the marine that matches weapon0 by id
+						let curVals = result[0];
+						pool.query("UPDATE spacemarines_equipments SET equipmentid=? WHERE spacemarineid=? AND equipmentid=? LIMIT 1",
+							[req.body.newWeapon0 || curVals.equipmentid, curVals.spacemarineid, curVals.equipmentid],
+							function(err, result){
+							if(err){
+								next(err);
+								return;
+							}
+							if(req.body.currentWeapon1 != req.body.newWeapon1){
+								//find an equipment associated with the marine that matches weapon1 by id
+								pool.query("SELECT * FROM spacemarines_equipments WHERE spacemarineid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon1], function(err, result){
+									if(err){
+										next(err);
+										return;
+									}
+									if(result.length == 1 || result.length==2){
+										let curVals = result[0];
+										//update equipment associated with the marine that matches weapon1 by id
+										pool.query("UPDATE spacemarines_equipments SET equipmentid=? WHERE spacemarineid=? AND equipmentid=? LIMIT 1",
+											[req.body.newWeapon1 || curVals.equipmentid, curVals.spacemarineid, curVals.equipmentid],
+											function(err, result){
+											if(err){
+												next(err);
+												return;
+											}
+											renderHomeContext(res, next);
+										});
+									}
+									else{
+										renderHomeContext(res, next);
+									}
+								});
+							}
+							else{
+								renderHomeContext(res, next);
+							}
+						});
+					}
+					else{
+						console.log("error in updating marine: finding marine equipment");
+						renderHomeContext(res, next);
+					}
+				});
+			}
+			else{
+				renderHomeContext(res, next);
+			}
+		}
+		else{
+			console.log("error in updating marine: finding marine");
+			renderHomeContext(res, next);
+		}
+	});
+}
+
+function removeSpaceMarine(req, res, next){
+	pool.query("SELECT * FROM spacemarines WHERE spacemarines.id=?", [req.body.id], function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(result.length == 1){
+			let curVals = result[0];
+			pool.query("DELETE FROM spacemarines WHERE spacemarines.id=?", [req.body.id], function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				renderHomeContext(res, next);
+			});
+		}
+		else{
+			console.log("error finding spacemarine to delete");
+			renderHomeContext(res, next);
+		}
+	});
+}
+
+function addSpaceMarine(req, res, next){
+	pool.query("INSERT INTO spacemarines (spacemarines.name, spacemarines.assaultsquadid) VALUES (?, ?)",
+		['Marine', req.body.assaultsquadid],
+		function(err, result){
+		if(err){
+			next(err);
+			return;
+		}
+		newMarine = result;
+		pool.query("INSERT INTO spacemarines_equipments (spacemarineid, equipmentid) VALUES (?, ?)",
+			[newMarine.insertId, req.body.weapon0 || 1],
+			function(err, result){
+			if(err){
+				next(err);
+				return;
+			}
+			pool.query("INSERT INTO spacemarines_equipments (spacemarineid, equipmentid) VALUES (?, ?)",
+				[newMarine.insertId, req.body.weapon1 || 2],
+				function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				pool.query("INSERT INTO assaultsquads_spacemarines (assaultsquadid, spacemarineid) VALUES (?, ?)",
+				[req.body.assaultsquadid, newMarine.insertId],
+				function(err, result){
+				if(err){
+					next(err);
+					return;
+				}
+				console.log("marine added " + newMarine.insertId);
+				renderHomeContext(res, next);
+			});
+			});
+		});
+	});
+}
 
 module.exports = router;
