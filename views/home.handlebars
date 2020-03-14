@@ -87,11 +87,12 @@
 										<td>{{this.id}}</td>
 										<td><input type="text" name="sergeantName" value="{{this.name}}"
 												class="form-control"></td>
-										{{#each this.weapons}}
+										{{#forTwo this.weapons}}
 										<td>
 											<input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
 											<select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleSergeantWeapons">
-												<option value="{{this.id}}" disabled selected>{{this.name}}</option>
+												{{#if this}}<option value="{{this.id}}" disabled selected>{{this.name}}</option>{{/if}}
+												{{#unless this}}<option value='{{../../../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>{{/unless}}
 												{{#each ../../../../this.possibleSergeantWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
@@ -99,7 +100,7 @@
 												{{/each}}
 											</select>
 										</td>
-										{{/each}}
+										{{/forTwo}}
 										<td>{{this.point_cost}}</td>
 										<td><input type="submit" name="updateSergeant" value="Update"
 												class="btn btn-primary"></td>
@@ -155,6 +156,7 @@
 											<td>--</td>
 											<td>
 												<select class="custom-select mr-sm-2" name="newWeapon" id="possibleSergeantWeapons">
+													<option value = "{{../../../this.possibleSpecialWeapons.0.id}}" selected disabled>Special Equipment</option>
 													{{#each ../../../this.possibleSpecialWeapons}}
 													{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 														<option value="{{this.id}}">{{this.name}}</option>
@@ -192,6 +194,7 @@
 												class="form-control"></td>
 										<td>
 											<select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
+												<option value='{{../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleSergeantWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
@@ -201,6 +204,7 @@
 										</td>
 										<td>
 											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
+												<option value='{{../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleSergeantWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
@@ -231,14 +235,15 @@
 								<tr>
 									<form action="/" method="post" class="py-2">
 										<input type="hidden" name="id" value="{{this.id}}">
-										<td><input type="button" name="removeSpaceMarine" value="-"
+										<td><input type="submit" name="removeSpaceMarine" value="-"
 												class="btn btn-primary"></td>
 										<td>{{this.id}}</td>
-										{{#each this.weapons}}
+										{{#forTwo this.weapons}}
 										<td>
 											<input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
 											<select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleBasicWeapons">
-												<option value="{{this.id}}" disabled selected>{{this.name}}</option>
+												{{#if this}}<option value="{{this.id}}" disabled selected>{{this.name}}</option>{{/if}}
+												{{#unless this}}<option disabled selected>Equipment</option>{{/unless}}
 												{{#each ../../../../this.possibleBasicWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
@@ -246,7 +251,7 @@
 												{{/each}}
 											</select>
 										</td>
-										{{/each}}
+										{{/forTwo}}
 										<td>{{this.point_cost}}</td>
 										<td><input type="submit" name="updateMarine" value="Update"
 												class="btn btn-primary"></td>
@@ -260,6 +265,7 @@
 										<td>--</td>
 										<td>
 											<select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
+												<option value='{{../../this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleBasicWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
@@ -269,6 +275,7 @@
 										</td>
 										<td>
 											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
+												<option value='{{../../this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleBasicWeapons}}
 												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
 													<option value="{{this.id}}">{{this.name}}</option>
