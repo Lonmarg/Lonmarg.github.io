@@ -7,8 +7,8 @@ const path = require('path');
 //const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 const handlebars = require('express-handlebars').create({
     defaultLayout: 'main',
-    helpers: require(path.join(__dirname, 'helpers/selectHelper')),
-    helpers: require(path.join(__dirname, 'helpers/forTwoHelper'))
+    helpers: require(path.join(__dirname, './helpers/selectHelper')),
+    helpers: require(path.join(__dirname, './helpers/forTwoHelper'))
 });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
