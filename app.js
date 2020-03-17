@@ -7,13 +7,12 @@ const path = require('path');
 //const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 const handlebars = require('express-handlebars').create({
     defaultLayout: 'main',
-    helpers: require(path.join(__dirname, './helpers/selectHelper')),
-    helpers: require(path.join(__dirname, './helpers/forTwoHelper'))
+    helpers: require(path.join(__dirname, './customHelpers/selectHelper')),
+    helpers: require(path.join(__dirname, './customHelpers/forTwoHelper'))
 });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
-//app.set('helpers', path.join(dirname, 'helpers'));
 app.use(express.static(path.join(__dirname, '/public')));
 
 //Setup Routes
