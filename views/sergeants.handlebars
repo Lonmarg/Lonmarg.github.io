@@ -24,92 +24,210 @@
 <h5>Sergeants Table</h5>
 <div class = "d-flex flex-row"></div>
 {{!-- SERGEANTS TABLE --}}
-<table class="table table-hover table-dark table-striped">
-    <tbody>
-        <tr>
-            <th scope = "row">Add/Remove </th>
-            <th scope = "row">ID </th>
-            <th scope = "row">SquadID </th>
-            <th scope = "row">Name</th>
-            <th scope = "row">Equipment 1 </th>
-            <th scope = "row">Equipment 2 </th>
-            <th scope = "row">Special Equipment</th>
-            <th scope = "row">Point Cost </th>
-        </tr>
-{{!-- DISPLAY ALL CURRENT SERGEANTS --}}
-        {{#each sergeants}}
-        <tr>
-            <td>
-                <form action ="/" method="post" class= "mb-4">
-                    <div class="form-group">
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class="btn-group col-md-auto">
-                                <input type="button" name="-Squad" value="-" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </div>
-                </form>
-            </td>
-            <td>{{this.id}}</td>
-            <td>{{this.assaultsquadid}}</td>
-            <td>{{this.name}}</td>
-            <td>{{this.equipment1}}</td>
-            <td>{{this.equipment2}}</td>
-            <td></td>
-            <td>{{this.base_point_cost}}</td>
-        </tr>
-        {{/each}}
-{{!-- ADD SERGEANTS --}}
-        <tr>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <td>
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class="btn-group col-md-auto">
-                                <input type="button" name="+Squad" value="+" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </td>
-                    <td>--</td>
-                    <td>
-                        <input type="number" id="squadID" name="squadID" min="0" max="20" value = 20 class="form-control">
-                    </td>
-                    <td>
-                        <div class="form-group ">
-                            <input type="text" name="sergeantName" class="form-control" value="Sergeant1"> 
-                        </div>
-                    </td>
-                    <td>
-                        <select class="custom-select mr-sm-2" id="weapon1">
-                            <option selected>Weapon1</option>
-                            {{#each equipments}}
-                            <option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <select class="custom-select mr-sm-2" id="weapon1">
-                            <option selected>Weapon2</option>
-                            {{#each equipments}}
-                            <option value={{equipments.name}}>{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <select class="custom-select mr-sm-2" id="weapon1">
-                            <option selected>Special Weapon 1</option>
-                            {{#each equipments}}
-                            <option value={{equipments.name}}>{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <div class="form-group ">
-                            <input type="number" id="sergeantCost" name="sergeantName" min="0" max="20" value = 20 class="form-control">
-                        </div>
-                    </td>
-                </div>
-            </form>
-        </tr>
-    </tbody>
-</table>
+<ul class="list-group">
+{{#each sergeantsList}}
+	<li class="list-group-item border border-primary">{{!-- SERGEANT SECTION --}}
+		<h5 class="d-flex flex-row">Sergeant</h5>
+		<table class="table table-hover table-dark table-striped">{{!-- SERGEANT EQIPMENT TABLE --}}
+			<h6 class="d-flex flex-row">Sergeant's Equipment</h6>
+			<tbody>
+				<tr>
+					<th scope = "row">Add/Remove </th>
+					<th scope = "row">ID </th>
+					<th scope = "row">SquadID </th>
+					<th scope = "row">Name</th>
+					<th scope = "row">Equipment 1 </th>
+					<th scope = "row">Equipment 2 </th>
+					<th scope = "row">Special Equipment</th>
+					<th scope = "row">Point Cost </th>
+				</tr>
+				<tr>
+					<td>
+						<form action ="/" method="post" class= "mb-4">
+							<div class="form-group">
+								<form action ="/" method="post" class= "mb-4">
+									<div class="btn-group col-md-auto">
+										<input type="button" name="-Squad" value="-" class="btn btn-primary">
+									</div>
+								</form>
+							</div>
+						</form>
+					</td>
+					<td>{{this.id}}</td>
+					<td>{{this.assaultsquadid}}</td>
+					<td>{{this.name}}</td>
+					{{#if this.hasEquipment}}
+						{{#if this.onlyOne}}
+							<td>
+							<select class="custom-select mr-sm-2" id="curWeapon1">
+								<option selected>{{this.sergeants_equipments.name}}</option>
+								{{#each ../../this.possible_equipments}}
+								{{#unless this.is_special_weapon}}
+									<option value="{{this.id}}">{{this.name}}</option>
+								{{/unless}}
+								{{/each}}
+							</select>
+							</td>
+							<td>
+							<select class="custom-select mr-sm-2" id="noWeapon1">
+								{{#each ../../this.possible_equipments}}
+								{{#unless this.is_special_weapon}}
+									<option value="{{this.id}}">{{this.name}}</option>
+								{{/unless}}
+								{{/each}}
+							</select>
+							</td>
+						{{else}}
+							{{#each this.sergeants_equipments}}
+								<td>
+								<select class="custom-select mr-sm-2" id="curWeapon1">
+									<option selected>{{this.name}}</option>
+									{{#each ../../../../this.possible_equipments}}
+									{{#unless this.is_special_weapon}}
+										<option value="{{this.id}}">{{this.name}}</option>
+									{{/unless}}
+									{{/each}}
+								</select>
+								</td>
+							{{/each}}
+						{{/if}}
+					
+					{{else}}
+						<td>
+						<select class="custom-select mr-sm-2" id="noWeapon1">
+							{{#each ../../this.possible_equipments}}
+							{{#unless this.is_special_weapon}}
+								<option value="{{this.id}}">{{this.name}}</option>
+							{{/unless}}
+							{{/each}}
+						</select>
+						</td>
+						
+						<td>
+						<select class="custom-select mr-sm-2" id="noWeapon1">
+							{{#each ../../this.possible_equipments}}
+							{{#unless this.is_special_weapon}}
+								<option value="{{this.id}}">{{this.name}}</option>
+							{{/unless}}
+							{{/each}}
+						</select>
+						</td>
+					{{/if}}
+					<td>{{this.base_point_cost}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-hover table-dark table-striped">
+			{{!-- SERGEANT SPECIAL EQUIPMENT TABLE --}}
+			<h6>Sergeant's Special Equipment</h6>
+			<tbody>
+				<tr>
+					<th scope="row">+/-</th>
+					<th scope="row">ID</th>
+					<th scope="row">Special Equipment</th>
+					<th scope="row">Point Cost</th>
+					<th scope="row">Update</th>
+				</tr>
+				{{#if this.special_equipments}}
+				{{#each this.special_equipments}}
+				<tr>
+					<form action="/" method="post" class="">
+						<div class="form-group">
+							<input type="hidden" name="id" value="{{../this.id}}">
+							<td><input type="submit" name="removeSpecialEquipment" value="-"
+									class="btn btn-primary"></td>
+							<td>{{this.id}}</td>
+							<td>{{this.name}}</td>
+							<td>{{this.point_cost}}</td>
+							<td><input type="submit" name="updateSpecialEquipment" value="Update"
+								class="btn btn-primary"></td>
+						</div>
+					</form>
+				</tr>
+				{{/each}}
+				{{/if}}
+				<tr>{{!-- ADD SPECIAL EQUIPMENT --}}
+					<form action="/" method="post" class="">
+					<input type="hidden" name="id" value="{{this.id}}">
+						<div class="form-group">
+							<td><input type="submit" name="addSpecialEquipment" value="+"
+								class="btn btn-primary"></td>
+							<td>--</td>
+							<td>
+								<select class="custom-select mr-sm-2" name="newWeapon" id="possibleSergeantWeapons">
+									{{#each ../this.possible_equipments}}
+									{{#if this.is_special_weapon}}
+										<option value="{{this.id}}">{{this.name}}</option>
+									{{/if}}
+									{{/each}}
+								</select>
+							</td>
+							<td>--</td>
+							<td></td>
+						</div>
+					</form>
+				</tr>
+			</tbody>
+		</table>
+	</li>
+{{/each}}	
+</ul>	
+		
+{{!-- ADD SERGEANTS --}} 
+<li class="list-group-item border border-primary">{{!-- ADD SERGEANT SECTION --}}
+	<h5 class="d-flex flex-row">Add Sergeant</h5>
+	<table class="table table-hover table-dark table-striped">{{!-- SERGEANT EQIPMENT TABLE --}}
+		<h6 class="d-flex flex-row">Sergeant's Equipment</h6>
+		<tr>
+			<form action ="/" method="post" class= "mb-4">
+				<div class="form-group">
+					<td>
+						<form action ="/" method="post" class= "mb-4">
+							<div class="btn-group col-md-auto">
+								<input type="button" name="+Squad" value="+" class="btn btn-primary">
+							</div>
+						</form>
+					</td>
+					<td>--</td>
+					<td>
+						<input type="number" id="squadID" name="squadID" min="0" max="20" value = 20 class="form-control">
+					</td>
+					<td>
+						<div class="form-group ">
+							<input type="text" name="sergeantName" class="form-control" value="Sergeant1"> 
+						</div>
+					</td>
+					<td>
+						<select class="custom-select mr-sm-2" id="weapon1">
+							<option selected>Weapon1</option>
+							{{#each equipments}}
+							<option value={{equipments.equipmentsID}}>{{equipments.name}}</option>
+							{{/each}}
+						</select>
+					</td>
+					<td>
+						<select class="custom-select mr-sm-2" id="weapon1">
+							<option selected>Weapon2</option>
+							{{#each equipments}}
+							<option value={{equipments.name}}>{{equipments.name}}</option>
+							{{/each}}
+						</select>
+					</td>
+					<td>
+						<select class="custom-select mr-sm-2" id="weapon1">
+							<option selected>Special Weapon 1</option>
+							{{#each equipments}}
+							<option value={{equipments.name}}>{{equipments.name}}</option>
+							{{/each}}
+						</select>
+					</td>
+					<td>
+						<div class="form-group ">
+							<input type="number" id="sergeantCost" name="sergeantName" min="0" max="20" value = 20 class="form-control">
+						</div>
+					</td>
+				</div>
+			</form>
+		</tr>
+	</table>
+</li>
