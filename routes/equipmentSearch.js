@@ -12,12 +12,12 @@ let pool = mysql.createPool({
 router.get('/equipmentSearch', function(req, res, next) {
 	let context = {};
 	let sql = "SELECT * FROM equipments";
-	pool.query(sql, function(err, q_armylists){
+	pool.query(sql, function(err, q_equipments){
 		if(err){
 			next(err);
 			return;
 		}
-		context.armylists = q_armylists;
+		context.equipments = q_equipments
 		res.render('equipmentSearch', context);
 	});
 });

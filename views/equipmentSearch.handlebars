@@ -30,6 +30,7 @@
 			<th scope="row">Point Cost</th>
 			{{!-- <th scope="row">Update</th> --}}
 		</tr>
+		{{#each equipments}}
 		<tr>
 			<form action="/" method="post" class="py-2">
 				<input type="hidden" name="id" value="{{this.id}}">
@@ -45,5 +46,6 @@
 						class="btn btn-primary"></td> --}}
 			</form>
 		</tr>
+		{{/equipments}}
 	</tbody>
 </table>
