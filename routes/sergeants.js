@@ -99,7 +99,7 @@ router.get('/', function(req, res, next) {
 				});
 			}
 		});
-    });
+  });
 });
 
 function finishedLoading(res, context)
