@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 		
 		context.sergeantsList = q_sergeants_list;
 		
-		let weapons = "SELECT equipments.id, equipments.name, equipments.is_special_weapon FROM equipments";
+		let weapons = "SELECT equipments.id, equipments.name FROM equipments WHERE equipments.is_special_weapon = 0";
 				
 		pool.query(weapons, function(err, q_possible_equipments)
 		{
@@ -42,8 +42,6 @@ router.get('/', function(req, res, next) {
 					   " INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id )" + 
 					   " INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id )" + 
 					   " WHERE sergeants_equipments.sergeantid = (?) AND equipments.is_special_weapon = 0";
-			
-			sergeantsLoaded = 0;
 			
 			for(let i=0; i< context.sergeantsList.length; i++)
 			{
@@ -72,40 +70,13 @@ router.get('/', function(req, res, next) {
 						context.sergeantsList[i].sergeants_equipments = q_sergeants_equipments;
 						context.sergeantsList[i].onlyOne = false;
 					}
-					
-					//Get all sergeants equipments that aren't special weapons
-					let sql = "SELECT equipments.id, equipments.name FROM sergeants_equipments" + 
-							  " INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id )" + 
-							  " INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id )" + 
-							  " WHERE sergeants_equipments.sergeantid = (?) AND equipments.is_special_weapon = 1";
-
-					pool.query(sql, [context.sergeantsList[i].id], function(err, q_sergeants_special_equipments)
-					{
-						if(err)
-						{
-							next(err);
-							return;
-						}
-						
-						context.sergeantsList[i].special_equipments = q_sergeants_special_equipments;
-				
-						sergeantsLoaded += 1;
-						
-						if(sergeantsLoaded >= context.sergeantsList.length)
-						{
-							finishedLoading(res, context);
-						}
-					});
 				});
 			}
 		});
+		
+		res.render('sergeants', context);
     });
 });
-
-function finishedLoading(res, context)
-{
-	res.render('sergeants', context);
-}
 
 router.delete('/:id', function(req, res) {
 	//Figure out how to deal with dependencies where we delete an item that is currently being used
