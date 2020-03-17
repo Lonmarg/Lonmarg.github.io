@@ -94,9 +94,9 @@
 												{{#if this}}<option value="{{this.id}}" disabled selected>{{this.name}}</option>{{/if}}
 												{{#unless this}}<option value='{{../../../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>{{/unless}}
 												{{#each ../../../../this.possibleSergeantWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>
@@ -133,9 +133,9 @@
 												<select class="custom-select mr-sm-2" name="newWeapon" id="possibleSergeantWeapons">
 													<option value="{{this.id}}" disabled selected>{{this.name}}</option>
 													{{#each ../../../../this.possibleSpecialWeapons}}
-													{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+													
 														<option value="{{this.id}}">{{this.name}}</option>
-													{{!-- {{/select}} --}}
+													
 													{{/each}}
 												</select>
 											</td>
@@ -158,9 +158,9 @@
 												<select class="custom-select mr-sm-2" name="newWeapon" id="possibleSergeantWeapons">
 													<option value = "{{../../../this.possibleSpecialWeapons.0.id}}" selected disabled>Special Equipment</option>
 													{{#each ../../../this.possibleSpecialWeapons}}
-													{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+													
 														<option value="{{this.id}}">{{this.name}}</option>
-													{{!-- {{/select}} --}}
+													
 													{{/each}}
 												</select>
 											</td>
@@ -196,9 +196,9 @@
 											<select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
 												<option value='{{../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleSergeantWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>
@@ -206,9 +206,9 @@
 											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
 												<option value='{{../../this.possibleSergeantWeapons.0.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleSergeantWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>
@@ -245,9 +245,9 @@
 												{{#if this}}<option value="{{this.id}}" disabled selected>{{this.name}}</option>{{/if}}
 												{{#unless this}}<option disabled selected>Equipment</option>{{/unless}}
 												{{#each ../../../../this.possibleBasicWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>
@@ -267,9 +267,9 @@
 											<select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
 												<option value='{{../../this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleBasicWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>
@@ -277,9 +277,9 @@
 											<select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
 												<option value='{{../../this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
 												{{#each ../../this.possibleBasicWeapons}}
-												{{!-- {{#select  ../../../../this.possibleSergeantWeapons}}	 --}}
+												
 													<option value="{{this.id}}">{{this.name}}</option>
-												{{!-- {{/select}} --}}
+												
 												{{/each}}
 											</select>
 										</td>

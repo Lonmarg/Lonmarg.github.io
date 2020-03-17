@@ -23,18 +23,7 @@ router.get('/', function(req, res, next) {
         context.sergeants = q_sergeants;
         res.render('sergeants', context);
     });
-// WE NEED TO MAKE SURE THESE DON'T HAVE A RACE CONDITION BY MAKING THE SECOND A CALLBACK 
-//     pool.query("SELECT * FROM equipments ", function(err, q_equipments)
-// 	{
-// 		if(err)
-// 		{
-// 			next(err);
-// 			return;
-// 		}
-//         context.equipments = q_equipments;
 
-        
-//     });
 });
 
 module.exports = router;

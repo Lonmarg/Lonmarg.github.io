@@ -19,8 +19,9 @@ app.use(express.static(path.join(__dirname, '/public')));
 //Setup Routes
 const homeRouter = require('./routes/home');
 const equipmentsRouter = require('./routes/equipments');
-const spacemarinesRouter = require('./routes/spacemarines')
-const sergeantsRouter = require('./routes/sergeants')
+const spacemarinesRouter = require('./routes/spacemarines');
+const sergeantsRouter = require('./routes/sergeants');
+const equipmentSearchRouter = require('./routes/equipmentSearch');
 
 //set port to use and console message to remind how to end process
 app.set('port', 4361);
@@ -39,6 +40,7 @@ app.use('/', homeRouter);
 app.use('/equipments', equipmentsRouter);
 app.use('/spacemarines', spacemarinesRouter);
 app.use('/sergeants', sergeantsRouter);
+app.use('/equipmentSearch', equipmentSearchRouter);
 
 //Handle errors
 app.use(function(req, res) {
