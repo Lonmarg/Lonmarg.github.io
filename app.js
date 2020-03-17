@@ -24,7 +24,7 @@ const sergeantsRouter = require('./routes/sergeants');
 const equipmentSearchRouter = require('./routes/equipmentSearch');
 
 //set port to use and console message to remind how to end process
-app.set('port', 50507);
+app.set('port', 4361);
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
