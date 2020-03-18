@@ -60,7 +60,7 @@
 							<td>
 							<select class="custom-select mr-sm-2" id="weapon0{{@index}}">
 								<option selected>{{this.sergeants_equipments.name}}</option>
-								{{#each ../../../this.possible_equipments}}
+								{{#each ../../this.possible_equipments}}
 								{{#unless this.is_special_weapon}}
 									<option value="{{this.id}}">{{this.name}}</option>
 								{{/unless}}
@@ -69,7 +69,7 @@
 							</td>
 							<td>
 							<select class="custom-select mr-sm-2" id="weapon1{{@index}}">
-								{{#each ../../../this.possible_equipments}}
+								{{#each ../../this.possible_equipments}}
 								{{#unless this.is_special_weapon}}
 									<option value="{{this.id}}">{{this.name}}</option>
 								{{/unless}}
@@ -80,7 +80,7 @@
 							<td>
 							<select class="custom-select mr-sm-2" id="weapon0{{@index}}">
 								<option value="{{this.sergeants_equipments.0.id}}" selected>{{this.sergeants_equipments.0.name}}</option>
-								{{#each ../../../this.possible_equipments}}
+								{{#each ../../this.possible_equipments}}
 								{{#unless this.is_special_weapon}}
 									<option value="{{this.id}}">{{this.name}}</option>
 								{{/unless}}
@@ -90,7 +90,7 @@
 							<td>
 							<select class="custom-select mr-sm-2" id="weapon1{{@index}}">
 								<option value="{{this.sergeants_equipments.1.id}}" selected>{{this.sergeants_equipments.1.name}}</option>
-								{{#each ../../../this.possible_equipments}}
+								{{#each ../../this.possible_equipments}}
 								{{#unless this.is_special_weapon}}
 									<option value="{{this.id}}">{{this.name}}</option>
 								{{/unless}}
@@ -101,7 +101,7 @@
 					{{else}}
 						<td>
 						<select class="custom-select mr-sm-2" id="weapon0{{@index}}">
-							{{#each ../../../this.possible_equipments}}
+							{{#each ../../this.possible_equipments}}
 							{{#unless this.is_special_weapon}}
 								<option value="{{this.id}}">{{this.name}}</option>
 							{{/unless}}
@@ -111,7 +111,7 @@
 						
 						<td>
 						<select class="custom-select mr-sm-2" id="weapon1{{@index}}">
-							{{#each ../../../this.possible_equipments}}
+							{{#each ../../this.possible_equipments}}
 							{{#unless this.is_special_weapon}}
 								<option value="{{this.id}}">{{this.name}}</option>
 							{{/unless}}
