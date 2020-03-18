@@ -13,7 +13,7 @@ let pool = mysql.createPool({
 router.get('/', function(req, res, next) {
     let context = {};
 	
-	context.jsscripts = ["deleteEntry.js"];
+	context.jsscripts = ["equipmentFunctions.js"];
     
     pool.query("SELECT * FROM equipments", function(err, q_equipments)
 	{
@@ -29,7 +29,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res) {
-	//Figure out how to deal with dependencies where we delete an item that is currently being used
 	
 	var sql = "DELETE FROM equipments WHERE id = ?";
 	var inserts = [req.params.id];
@@ -42,10 +41,11 @@ router.delete('/:id', function(req, res) {
 		} else {
 			res.status(202).end();
 		}
-	})
-})
+	});
+});
 
 router.post('/add', function(req, res) {
+	
 	var sql = "INSERT INTO equipments (name, is_sergeant_weapon, is_special_weapon, point_cost) VALUES (?, ?, ?, ?)";
 
 	var inserts = [req.body.name, req.body.sergWeapon, req.body.specEquip, req.body.cost ];
@@ -59,7 +59,7 @@ router.post('/add', function(req, res) {
 		} else {
 			res.status(202).end();
 		}
-	})
-})
+	});
+});
 
 module.exports = router;

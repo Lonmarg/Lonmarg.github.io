@@ -12,7 +12,7 @@ function deleteEquipment(equipmentID)
 	})
 }
 
-function addEquipment(name, pointCost, isSergeantWeapon, isSpecialWeapon)
+function addEquipment()
 {
 	var name = document.getElementById("equipmentName").value;
 	var cost = document.getElementById("equipmentCost").value;

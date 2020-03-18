@@ -11,7 +11,10 @@ let pool = mysql.createPool({
 });
 
 router.get('/', function(req, res, next) {
-    let context = {};
+    
+	let context = {};
+	
+	context.jsscripts = ["sergeantFunctions.js"];
 	
 	let sergeantsList = "SELECT * FROM sergeants";
 	
@@ -38,7 +41,7 @@ router.get('/', function(req, res, next) {
 			context.possible_equipments = q_possible_equipments;
 		
 			//Get all sergeants equipments that aren't special weapons
-			let sql = "SELECT equipments.name FROM sergeants_equipments" + 
+			let sql = "SELECT equipments.name, equipments.id FROM sergeants_equipments" + 
 					   " INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id )" + 
 					   " INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id )" + 
 					   " WHERE sergeants_equipments.sergeantid = (?) AND equipments.is_special_weapon = 0";
@@ -107,38 +110,181 @@ function finishedLoading(res, context)
 	res.render('sergeants', context);
 }
 
+//Delete sergeant
 router.delete('/:id', function(req, res) {
-	//Figure out how to deal with dependencies where we delete an item that is currently being used
 	
-	// var sql = "DELETE FROM equipments WHERE id = ?";
-	// var inserts = [req.params.id];
-	// sql = pool.query(sql, inserts, function(error, results, fields) {
-		// if(error) {
-			// console.log(error)
-			// res.write(JSON.stringify(error));
-			// res.status(400);
-			// res.end();
-		// } else {
-			// res.status(202).end();
-		// }
-	// })
-})
+	var sql = "DELETE FROM sergeants WHERE id = ?";
+	var inserts = [req.params.id];
+	sql = pool.query(sql, inserts, function(error, results, fields) {
+		if(error) {
+			console.log(error)
+			res.write(JSON.stringify(error));
+			res.status(400);
+			res.end();
+		} else {
+			res.status(202).end();
+		}
+	});
+});
 
+//Add sergeant
 router.post('/add', function(req, res) {
-	// var sql = "INSERT INTO equipments (name, is_sergeant_weapon, is_special_weapon, point_cost) VALUES (?, ?, ?, ?)";
 
-	// var inserts = [req.body.name, req.body.sergWeapon, req.body.specEquip, req.body.cost ];
+	var sql = "INSERT INTO sergeants (assaultsquadid, name, base_point_cost) VALUES (?, ?, ?);";
+
+	var inserts = [ req.body.squadID, req.body.name, req.body.cost ];
 	
-	// sql = pool.query(sql, inserts, function(error, results, fields) {
-		// if(error) {
-			// console.log(error)
-			// res.write(json.stringify(error));
-			// res.status(400);
-			// res.end();
-		// } else {
-			// res.status(202).end();
-		// }
-	// })
-})
+	sql = pool.query(sql, inserts, function(error, results, fields) {
+		if(error) {
+			console.log(error)
+			res.write(json.stringify(error));
+			res.status(400);
+			res.end();
+		} else {
+			
+			var sergeantID = results.insertId;
+			
+			sql = "INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)";
+			
+			inserts = [ sergeantID, req.body.equipment1ID ];
+			
+			sql = pool.query(sql, inserts, function(error, results, fields) {
+				if(error) {
+					console.log(error)
+					res.write(json.stringify(error));
+					res.status(400);
+					res.end();
+				} else {
+					
+					sql = "INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)";
+					
+					inserts = [ sergeantID, req.body.equipment2ID ];
+					
+					sql = pool.query(sql, inserts, function(error, results, fields) {
+						if(error) {
+							console.log(error)
+							res.write(json.stringify(error));
+							res.status(400);
+							res.end();
+						} else {
+							res.status(202).end();
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+//Update sergeant
+router.post('/update', function(req, res) {
+	
+	var sql = "SELECT equipmentid FROM sergeants_equipments WHERE sergeantid = ?";
+
+	var inserts = [ req.body.sergeantID ];
+	
+	console.log("Initial Values: " + req.body.equipment1 + " : " + req.body.equipment2);
+	
+	sql = pool.query(sql, inserts, function(error, results, fields) {
+		if(error) {
+			console.log(error)
+			res.write(json.stringify(error));
+			res.status(400);
+			res.end();
+		} else {
+			if(results.length == 2)
+			{
+				var oldEquipment1 = results[0].equipmentid;
+				
+				var oldEquipment2 = results[1].equipmentid;
+				
+				if(oldEquipment1 != null)
+				{
+					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=?";
+
+					inserts = [ req.body.equipment1, req.body.sergeantID, oldEquipment1 ];
+				}
+				else
+				{
+					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL";
+
+					inserts = [ req.body.equipment1, req.body.sergeantID ];
+				}
+				
+				sql = pool.query(sql, inserts, function(error, results, fields) {
+					if(error) {
+						console.log(error)
+						res.write(json.stringify(error));
+						res.status(400);
+						res.end();
+					} else {
+						
+						if(oldEquipment2 != null)
+						{
+							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=?";
+
+							inserts = [ req.body.equipment2, req.body.sergeantID, oldEquipment2 ];
+						}
+						else
+						{
+							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL";
+
+							inserts = [ req.body.equipment2, req.body.sergeantID ];
+						}
+						
+						sql = pool.query(sql, inserts, function(error, results, fields) {
+							if(error) {
+								console.log(error)
+								res.write(json.stringify(error));
+								res.status(400);
+								res.end();
+							} else {
+								res.status(202).end();
+							}
+						});
+					}
+				});
+			}
+		}
+	});
+});
+
+//Delete special equipment
+router.post('/deleteSpecialWeapon', function(req, res) {
+	
+	console.log(req.body.weaponID);
+	
+	var sql = "DELETE FROM sergeants_equipments WHERE equipmentid = ?";
+	var inserts = [ req.body.weaponID ];
+	sql = pool.query(sql, inserts, function(error, results, fields) {
+		if(error) {
+			console.log(error)
+			res.write(JSON.stringify(error));
+			res.status(400);
+			res.end();
+		} else {
+			res.status(202).end();
+		}
+	});
+});
+
+//Add special equipment
+router.post('/addSpecialWeapon', function(req, res) {
+
+	var sql = "INSERT INTO sergeants_equipments (sergeantid, equipmentid) VALUES (?, ?)";
+
+	var inserts = [ req.body.sergeantID, req.body.weaponID ];
+	
+	sql = pool.query(sql, inserts, function(error, results, fields) {
+		if(error) {
+			console.log(error)
+			res.write(json.stringify(error));
+			res.status(400);
+			res.end();
+		} else {
+			res.status(202).end();
+		}
+	});
+});
 
 module.exports = router;
