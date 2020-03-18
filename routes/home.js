@@ -10,7 +10,6 @@ let pool = mysql.createPool({
 });
 
 router.get('/', function(req, res, next) {
-	console.log("trying to render home");
 	renderHomeContext(res, next);
 });
 
