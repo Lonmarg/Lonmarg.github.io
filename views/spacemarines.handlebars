@@ -6,7 +6,8 @@
 	<a href="/">Home   |   </a>
 	<a href="/sergeants">Admin: Sergeants   |   </a>
 	<a href="/spacemarines">Admin: Space Marines   |   </a>
-	<a href="/equipments">Admin: Equipments</a>
+	<a href="/equipments">Admin: Equipments   |   </a>
+    <a href="/equipmentSearch">Equipment Search</a>
 </div>
 
 <br>
@@ -27,76 +28,72 @@
 <table class="table table-hover table-dark table-striped">
     <tbody>
         <tr>
-            <th scope = "row">Add/Remove </th>
+            <th scope="row">+/-</th>
             <th scope = "row">ID </th>
             <th scope = "row">SquadID </th>
             <th scope = "row">Name</th>
             <th scope = "row">Equipment 1 </th>
             <th scope = "row">Equipment 2 </th>
             <th scope = "row">Point Cost </th>
+            <th scope = "row">Update</th>
         </tr>
-{{!-- DISPLAY ALL CURRENT MARINES --}}
-    {{#each spacemarines}}
-    <tr>
-        <td>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <form action ="/" method="post" class= "mb-4">
-                        <div class="btn-group col-md-auto">
-                            <input type="button" name="-Squad" value="-" class="btn btn-primary">
-                        </div>
-                    </form>
-                </div>
-            </form>
-        </td>
-        <td>{{this.id}}</td>
-        <td>{{this.assaultsquadid}}</td>
-        <td>{{this.name}}</td>
-        <td>{{this.equipment1}}</td>
-        <td>{{this.equipment2}}</td>
-        <td>{{this.basePointCost}}</td>
-    </tr>
-    {{/each}}
-{{!-- ADD MARINES --}}
+        {{#each spacemarines}}{{!-- DISPLAY ALL CURRENT MARINES --}}
         <tr>
-            <form action ="/" method="post" class= "mb-4">
-                <div class="form-group">
-                    <td>
-                        <form action ="/" method="post" class= "mb-4">
-                            <div class="btn-group col-md-auto">
-                                <input type="button" name="+Squad" value="+" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </td>
-                    <td>--</td>
-                    <td>
-                        <input type="number" id="squadID" name="squadID" min="0" max="20" value = 20 class="form-control">
-                    </td>
-                    <td>
-                        <div class="form-group ">
-                            <input type="text" name="marineName" class="form-control" value="SpaceMarine1"> 
-                        </div>
-                    </td>
-                    <td>
-                        <select class="custom-select mr-sm-2" id="weapon1">
-                            <option selected>Weapon1</option>
-                            {{#each equipments}}
-                            <option value="{{equipments.id}}">{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <select class="custom-select mr-sm-2" id="weapon1">
-                            <option selected>Weapon2</option>
-                            {{#each equipments}}
-                            <option value="{{equipments.id}}">{{equipments.name}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" id="marineCost" name="marineName" min="0" max="20" value = 20 class="form-control">
-                    </td>
-                </div>
+            <form action="/spacemarines" method="post" class="py-2">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <td><input type="submit" name="removeSpaceMarine" value="-"
+                        class="btn btn-primary"></td>
+                <td>{{this.id}}</td>
+                <td><input class="form-control" name="assaultsquadid" type="number" value="{{this.assaultsquadid}}" id="assaultsquadid" min="0"></td>
+                <td><input type="text" name="name" value="{{this.name}}" class="form-control"></td>
+                {{#forTwo this.weapons}}
+                <td>
+                    <input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
+                    <select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleBasicWeapons">
+                        {{#if this}}<option value="{{this.id}}" disabled selected>{{this.name}}</option>{{/if}}
+                        {{#unless this}}<option disabled selected>Equipment</option>{{/unless}}
+                        {{#each ../../this.possibleBasicWeapons}}
+                        
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        
+                        {{/each}}
+                    </select>
+                </td>
+                {{/forTwo}}
+                <td><input class="form-control" name="base_point_cost" type="number" value="{{this.base_point_cost}}" id="base_point_cost" min="1"></td>
+                <td><input type="submit" name="updateSpaceMarine" value="Update"
+                        class="btn btn-primary"></td>
+            </form>
+        </tr>
+        {{/each}}
+       <tr>{{!-- ADD SPACE MARINES --}}
+            <form action="/spacemarines" method="post" class="py-2">
+                <td><input type="submit" name="addSpaceMarine" value="+" class="btn btn-primary col-md-auto"></td>
+                <td>--</td>
+                <td><input class="form-control" name="assaultsquadid" type="number" value="1" id="assaultsquadid" min="1"></td>
+                <td><input type="text" name="name" value="Name" class="form-control"></td>
+                <td>
+                    <select class="custom-select mr-sm-2" name="weapon0" id="weapon0">
+                        <option value='{{this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
+                        {{#each this.possibleBasicWeapons}}
+                        
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        
+                        {{/each}}
+                    </select>
+                </td>
+                <td>
+                    <select class="custom-select mr-sm-2" name="weapon1" id="weapon1">
+                        <option value='{{this.possibleBasicWeapons.id}}' disabled selected>Equipment</option>
+                        {{#each this.possibleBasicWeapons}}
+                        
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        
+                        {{/each}}
+                    </select>
+                </td>
+                <td><input class="form-control" name="base_point_cost" type="number" value="1" id="base_point_cost" min="1"></td>
+                <td></td>
             </form>
         </tr>
     </tbody>

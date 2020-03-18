@@ -9,7 +9,22 @@ let pool = mysql.createPool({
 	database: 'cs340_wellheup'
 });
 
-router.get('/equipmentSearch', function(req, res, next) {
+router.get('/', function(req, res, next) {
+	displayEquipments(req, res, next);
+});
+
+router.post('/', function(req, res, next) {
+	if(req.body.Search){
+		console.log('searching')
+		searchEquipments(req, res, next);
+	}
+	else{
+		displayEquipments(req, res, next);
+	}
+	
+});
+
+function displayEquipments(req, res, next){
 	let context = {};
 	let sql = "SELECT * FROM equipments";
 	pool.query(sql, function(err, q_equipments){
@@ -20,11 +35,23 @@ router.get('/equipmentSearch', function(req, res, next) {
 		context.equipments = q_equipments
 		res.render('equipmentSearch', context);
 	});
-});
+}
 
-router.post('/', function(req, res, next) {
+function searchEquipments(req, res, next){
 	console.log(req.body);
-	renderHomeContext(res, next);
-});
+	let context = {};
+	let sql = "SELECT * FROM equipments WHERE id"+req.body.idMod+"? AND is_sergeant_weapon=? AND is_special_weapon=? AND point_cost"+req.body.point_costMod+"?";
+	//let sql = "SELECT * FROM `equipments` WHERE id>1 AND is_sergeant_weapon=0 AND is_special_weapon=0 AND point_cost=10"
+	console.log(sql);
+	pool.query(sql, [req.body.id, req.body.is_sergeant_weapon, req.body.is_special_weapon, req.body.point_cost], function(err, q_equipments){
+		if(err){
+			next(err);
+			return;
+		}
+		console.log(q_equipments);
+		context.equipments = q_equipments
+		res.render('equipmentSearch', context);
+	});
+}
 
 module.exports = router;
