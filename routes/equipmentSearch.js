@@ -38,17 +38,25 @@ function displayEquipments(req, res, next){
 }
 
 function searchEquipments(req, res, next){
-	console.log(req.body);
+	if(req.body.is_sergeant_weapon){
+		req.body.is_sergeant_weapon=1;
+	}
+	else{
+		req.body.is_sergeant_weapon=0;
+	}
+	if(req.body.is_special_weapon){
+		req.body.is_special_weapon=1;
+	}
+	else{
+		req.body.is_special_weapon=0;
+	}
 	let context = {};
 	let sql = "SELECT * FROM equipments WHERE id"+req.body.idMod+"? AND is_sergeant_weapon=? AND is_special_weapon=? AND point_cost"+req.body.point_costMod+"?";
-	//let sql = "SELECT * FROM `equipments` WHERE id>1 AND is_sergeant_weapon=0 AND is_special_weapon=0 AND point_cost=10"
-	console.log(sql);
 	pool.query(sql, [req.body.id, req.body.is_sergeant_weapon, req.body.is_special_weapon, req.body.point_cost], function(err, q_equipments){
 		if(err){
 			next(err);
 			return;
 		}
-		console.log(q_equipments);
 		context.equipments = q_equipments
 		res.render('equipmentSearch', context);
 	});
