@@ -179,11 +179,12 @@ router.post('/add', function(req, res) {
 //Update sergeant
 router.post('/update', function(req, res) {
 	
-	var sql = "SELECT equipmentid FROM sergeants_equipments WHERE sergeantid = ?";
+	var sql = "SELECT equipmentid FROM sergeants_equipments" + 
+				" INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id )" + 
+				" INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id )" + 
+				" WHERE sergeants_equipments.sergeantid = (?) AND equipments.is_special_weapon = 0";
 
 	var inserts = [ req.body.sergeantID ];
-	
-	console.log("Initial Values: " + req.body.equipment1 + " : " + req.body.equipment2);
 	
 	sql = pool.query(sql, inserts, function(error, results, fields) {
 		if(error) {
@@ -192,21 +193,22 @@ router.post('/update', function(req, res) {
 			res.status(400);
 			res.end();
 		} else {
+			
 			if(results.length == 2)
-			{
+			{	
 				var oldEquipment1 = results[0].equipmentid;
 				
 				var oldEquipment2 = results[1].equipmentid;
 				
 				if(oldEquipment1 != null)
 				{
-					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=?";
+					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1";
 
 					inserts = [ req.body.equipment1, req.body.sergeantID, oldEquipment1 ];
 				}
 				else
 				{
-					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL";
+					sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL LIMIT 1";
 
 					inserts = [ req.body.equipment1, req.body.sergeantID ];
 				}
@@ -221,13 +223,13 @@ router.post('/update', function(req, res) {
 						
 						if(oldEquipment2 != null)
 						{
-							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=?";
+							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid=? LIMIT 1";
 
 							inserts = [ req.body.equipment2, req.body.sergeantID, oldEquipment2 ];
 						}
 						else
 						{
-							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL";
+							sql = "UPDATE sergeants_equipments SET equipmentid=? WHERE sergeantid=? AND equipmentid IS NULL LIMIT 1";
 
 							inserts = [ req.body.equipment2, req.body.sergeantID ];
 						}
