@@ -100,7 +100,7 @@ function renderHomeContext(res, next){
 			completedQueries = 0;
 			for(let i=0; i< context.armylists.length; i++){
 				queriesToComplete +=1;
-				pool.query(sql, [context.armylists[i].id], function(err, q_assaultsquads){ //REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+				pool.query(sql, [context.armylists[i].id], function(err, q_assaultsquads){ 
 					if(err){
 						console.log("error in query to get assault squads");
 						next(err);
@@ -136,7 +136,7 @@ function renderHomeContext(res, next){
 			for(let i=0; i< context.armylists.length; i++){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					queriesToComplete +=1;
-					pool.query(sql, [context.armylists[i].assaultsquads[j].assaultsquadid], function(err, q_spacemarines){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+					pool.query(sql, [context.armylists[i].assaultsquads[j].assaultsquadid], function(err, q_spacemarines){
 						if(err){
 							console.log("error in query to get marines in assault squads");
 							reject(context);
@@ -156,10 +156,10 @@ function renderHomeContext(res, next){
 	};
 
 	let promiseGetMarineWeapons = function(context){
-		let sql = "SELECT equipments.id, equipments.name FROM spacemarines_equipments "+
+		let sql = "SELECT equipments.id, equipments.name, equipments.point_cost FROM spacemarines_equipments "+
 		"INNER JOIN spacemarines ON (spacemarines_equipments.spacemarineid = spacemarines.id ) " +
 		"INNER JOIN equipments ON (spacemarines_equipments.equipmentid = equipments.id ) " +
-		"WHERE spacemarines_equipments.spacemarineid = (?)";
+		"WHERE spacemarines_equipments.spacemarineid = (?) LIMIT 2";
 		//console.log("promiseGetMarineWeapons");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
@@ -168,7 +168,7 @@ function renderHomeContext(res, next){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					for(let k=0; k<context.armylists[i].assaultsquads[j].spacemarines.length; k++){
 						queriesToComplete +=1;
-						pool.query(sql, [context.armylists[i].assaultsquads[j].spacemarines[k].id], function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].spacemarines[k].id], function(err, q_weapons){
 							if(err){
 								console.log("error in query to get marine weapons");
 								reject(context);
@@ -196,7 +196,7 @@ function renderHomeContext(res, next){
 			for(let i=0; i< context.armylists.length; i++){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					queriesToComplete +=1;
-					pool.query(sql, [context.armylists[i].assaultsquads[j].id], function(err, q_sergeants){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+					pool.query(sql, [context.armylists[i].assaultsquads[j].id], function(err, q_sergeants){
 						if(err){
 							console.log("error in query to get sergeants in assault squads");
 							reject(context);
@@ -215,24 +215,19 @@ function renderHomeContext(res, next){
 	};
 
 	let promiseGetSergeantWeapons = function(context){
-		let sql = "SELECT equipments.id, equipments.name FROM sergeants_equipments "+
+		let sql = "SELECT equipments.id, equipments.name, equipments.point_cost FROM sergeants_equipments "+
 		"INNER JOIN sergeants ON (sergeants_equipments.sergeantid = sergeants.id ) " +
 		"INNER JOIN equipments ON (sergeants_equipments.equipmentid = equipments.id ) " +
-		"WHERE sergeants_equipments.sergeantid = (?) AND NOT (equipments.is_sergeant_weapon = 0 AND equipments.is_special_weapon = 1)";
-		console.log("promiseGetSergeantWeapons");
+		"WHERE sergeants_equipments.sergeantid = (?) AND NOT (equipments.is_sergeant_weapon = 0 AND equipments.is_special_weapon = 1) LIMIT 2";
+		//console.log("promiseGetSergeantWeapons");
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
 			completedQueries = 0;
 			for(let i=0; i< context.armylists.length; i++){
-				console.log(1);
-				console.log(context.armylists);
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
-					console.log(2);
-					console.log(context.armylists[i].assaultsquads);
 					for(let k=0; k<context.armylists[i].assaultsquads[j].sergeants.length; k++){
-						console.log(3);
 						queriesToComplete +=1;
-						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_weapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_weapons){
 							if(err){
 								console.log("error in query to get sergeant weapons");
 								reject(context);
@@ -265,7 +260,7 @@ function renderHomeContext(res, next){
 				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){
 					for(let k=0; k<context.armylists[i].assaultsquads[j].sergeants.length; k++){
 						queriesToComplete +=1;
-						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_specials){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+						pool.query(sql, [context.armylists[i].assaultsquads[j].sergeants[k].id], function(err, q_specials){
 							if(err){
 								console.log("error in query to get special weapons");
 								reject(context);
@@ -291,7 +286,7 @@ function renderHomeContext(res, next){
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 1;
 			completedQueries = 0;
-			pool.query(sql, function(err, q_possibleSergeantWeapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+			pool.query(sql, function(err, q_possibleSergeantWeapons){
 				if(err){
 					console.log("error in promiseGetPossibleSergeantWeapons");
 					reject(context);
@@ -312,7 +307,7 @@ function renderHomeContext(res, next){
 		"WHERE equipments.is_special_weapon = 0 and equipments.is_sergeant_weapon = 0";
 		//console.log("promiseGetPossibleBasicWeapons");
 		return new Promise(function(resolve, reject){
-			pool.query(sql, function(err, q_possibleBasicWeapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+			pool.query(sql, function(err, q_possibleBasicWeapons){
 				if(err){
 					console.log("error in promiseGetPossibleBasicWeapons");
 					reject(context);
@@ -330,7 +325,7 @@ function renderHomeContext(res, next){
 		"WHERE equipments.is_special_weapon = 1 and equipments.is_sergeant_weapon = 0";
 		//console.log("promiseGetPossibleSpecialWeapons");
 		return new Promise(function(resolve, reject){
-			pool.query(sql, function(err, q_possibleSpecialWeapons){//REPLACE THE 1 WITH A QUESTION MARK FOR DYNAMIC INTERPRETATION
+			pool.query(sql, function(err, q_possibleSpecialWeapons){
 				if(err){
 					console.log("error in promiseGetPossibleSpecialWeapons");
 					reject(context);
@@ -343,34 +338,88 @@ function renderHomeContext(res, next){
 		});
 	};
 
+	let promiseGetPoints = function(context){
+		return new Promise(function(resolve, reject){
+			queriesToComplete = 0;
+			completedQueries = 0
+			for(let i=0; i< context.armylists.length; i++){//for each armylist
+				context.armylists[i].point_cost=0;
+				for(let j=0; j<context.armylists[i].assaultsquads.length; j++){//for each squad
+					context.armylists[i].assaultsquads[j].point_cost =0;
+					for(let k=0; k<context.armylists[i].assaultsquads[j].sergeants.length; k++){//for each sergeant
+						context.armylists[i].assaultsquads[j].sergeants[k].point_cost=0;
+						for(let m=0; m<context.armylists[i].assaultsquads[j].sergeants[k].weapons.length; m++){//fore each sergeant weapon
+							context.armylists[i].assaultsquads[j].sergeants[k].point_cost += context.armylists[i].assaultsquads[j].sergeants[k].weapons[m].point_cost;//add weapon cost to sergeant cost
+						}
+						for(let n=0; n<context.armylists[i].assaultsquads[j].sergeants[k].specials.length; n++){//for each sergeant special weapon
+							context.armylists[i].assaultsquads[j].sergeants[k].point_cost += context.armylists[i].assaultsquads[j].sergeants[k].specials[n].point_cost;//add weapon cost to sergeant cost
+						}
+						context.armylists[i].assaultsquads[j].sergeants[k].point_cost += context.armylists[i].assaultsquads[j].sergeants[k].base_point_cost;//add sergeant base point cost to point cost
+						context.armylists[i].assaultsquads[j].point_cost += context.armylists[i].assaultsquads[j].sergeants[k].point_cost; //add sergeant point cost to squad point cost
+					}
+					for(let p=0; p<context.armylists[i].assaultsquads[j].spacemarines.length; p++){//for each spacemarine
+						context.armylists[i].assaultsquads[j].spacemarines[p].point_cost=0;
+						for(let q=0; q<context.armylists[i].assaultsquads[j].spacemarines[p].weapons.length; q++){//for each space marine weapon
+							context.armylists[i].assaultsquads[j].spacemarines[p].point_cost += context.armylists[i].assaultsquads[j].spacemarines[p].weapons[q].point_cost;//add weapon cost to marine cost
+						}
+						context.armylists[i].assaultsquads[j].spacemarines[p].point_cost += context.armylists[i].assaultsquads[j].spacemarines[p].base_point_cost;//add marine point cost to base point cost
+						context.armylists[i].assaultsquads[j].point_cost += context.armylists[i].assaultsquads[j].spacemarines[p].point_cost;//add marine point cost to squad point cost
+					}
+					
+					if(context.armylists[i].assaultsquads[j].has_jumppacks){
+						context.armylists[i].assaultsquads[j].point_cost += 100;
+					}
+					context.armylists[i].point_cost += context.armylists[i].assaultsquads[j].point_cost;
+				}
+
+				queriesToComplete++;
+				pool.query("SELECT * FROM armylists WHERE id=?", [context.armylists[i].id], function(err, result){
+					if(err){
+						next(err);
+						return;
+					}
+					if(result.length == 1){
+						let curVals = result[0];
+						pool.query("UPDATE armylists SET point_total=? WHERE id=?",
+							[context.armylists[i].point_cost || curVals.point_total, context.armylists[i].id],
+							function(err, result){
+							if(err){
+								reject(context);
+								next(err);
+								return;
+							}
+							completedQueries++;
+							if(completedQueries == queriesToComplete){
+								resolve(context);
+							}
+						});
+					}
+				});
+			}
+		});
+	}
+
 	promiseGetPossibleSergeantWeapons().then(function(context){
-		console.log("promiseGetPossibleSergeantWeapons done");
 		return promiseGetPossibleBasicWeapons(context);	
 	}).then(function(context){
-		console.log("promiseGetPossibleBasicWeapons done");
 		return promiseGetPossibleSpecialWeapons(context);	
 	}).then(function(context){
 		return promiseGetArmylists(context);
 	}).then(function(context){
-		console.log("promiseGetArmylists done");
 		return promiseGetSquads(context);		
 	}).then(function(context){
-		console.log("promiseGetSquads done");
 		return promiseGetMarines(context);	
 	}).then(function(context){
-		console.log("promiseGetMarines done");
 		return promiseGetMarineWeapons(context);	
 	}).then(function(context){
-		console.log("promiseGetMarineWeapons done");
 		return promiseGetSergeants(context);	
 	}).then(function(context){
-		console.log("promiseGetSergeants done");
 		return promiseGetSergeantWeapons(context);	
 	}).then(function(context){
-		console.log("promiseGetSergeantWeapons done");
 		return promiseGetSergeantSpecialEquipments(context);	
 	}).then(function(context){
-		console.log("promiseGetPossibleSpecialWeapons done");
+		return promiseGetPoints(context);
+	}).then(function(context){
 		res.render('home', context);
 	}).catch(function(context){
 		res.render('home', context);
@@ -566,7 +615,7 @@ function updateSergeant(req, res, next){
 							});
 						}
 						else{
-							console.log("error in updating sergeant");
+							console.logconsole.log("error in updating sergeant");
 							renderHomeContext(res, next);
 						}
 					});
@@ -697,7 +746,6 @@ function updateSpaceMarine(req, res, next){
 			return;
 		}
 		if(result.length == 1){
-			let curVals = result[0];
 			if(req.body.currentWeapon0 != req.body.newWeapon0 || req.body.currentWeapon1 != req.body.newWeapon1){
 				//find an equipment associated with the marine that matches weapon0 by id
 				pool.query("SELECT * FROM spacemarines_equipments WHERE spacemarineid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon0], function(err, result){
@@ -715,6 +763,7 @@ function updateSpaceMarine(req, res, next){
 								next(err);
 								return;
 							}
+							console.log('updated weapon 1');
 							if(req.body.currentWeapon1 != req.body.newWeapon1){
 								//find an equipment associated with the marine that matches weapon1 by id
 								pool.query("SELECT * FROM spacemarines_equipments WHERE spacemarineid=? AND equipmentid=?", [req.body.id, req.body.currentWeapon1], function(err, result){

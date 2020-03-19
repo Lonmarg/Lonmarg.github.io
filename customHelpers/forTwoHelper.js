@@ -1,9 +1,9 @@
 module.exports = { 
     forTwo: function(context, options) {
-        var ret = "";
+        let ret = "";
 
-        for (var i = 0, j = 2; i < j; i++) {
-            ret = ret + options.fn(context[i]);
+        for (let i = 0, j = 2; i < j; i++) {
+            ret += options.fn(context[i]);
         }
 
         return ret;

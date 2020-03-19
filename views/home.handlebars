@@ -34,7 +34,7 @@
 					<input type="submit" name="removeArmylist" value="-" class="btn btn-primary col-md-auto">
 					<input type="text" name="armyName" value="{{this.name}}" class="form-control col-md-auto">
 					<h4 class=" col-md-auto">Squads: {{this.numAssaultSquads}}</h4>
-					<h4 class=" col-md-auto">Cost: {{this.point_total}}</h4>
+					<h4 class=" col-md-auto">Cost: {{this.point_cost}}</h4>
 					<input type="submit" name="updateArmylist" value="Update" class="btn btn-primary col-md-auto">
 				</div>
 			</div>
@@ -49,10 +49,8 @@
 							<input type="submit" name="removeAssaultSquad" value="-"
 								class="btn btn-primary col-md-auto">
 							<input type="text" name="squadName" value="{{this.name}}" class="form-control col-md-auto">
-							{{!-- NOTE: THIS NEEDS TO SOMEHOW BE UPDATED TO REPRESENT THE ADDITION OF SERGEANTS AS WELL --}}
 							<h4 class="col-md-auto">Members: {{this.space_marines_count}} </h4>
-							{{!-- NOTE: THIS NEEDS SOME BACKEND WORK TO CALCULATE THE TOTAL POINT COST PER SQUAD --}}
-							<h4 class="col-md-auto">Cost: x</h4>
+							<h4 class="col-md-auto">Cost: {{this.point_cost}}</h4>
 							<div class="custom-control custom-switch col-md-auto ">
 								<input type="checkbox" name="hasjumppacks" class="custom-control-input"
 									{{#if this.has_jumppacks}}checked{{/if}} id="jumppacks{{this.id}}">
@@ -88,7 +86,7 @@
 										<td>{{this.id}}</td>
 										<td><input type="text" name="sergeantName" value="{{this.name}}"
 												class="form-control"></td>
-										{{#forTwo this.weapons}}
+										{{#each this.weapons}}
 										<td>
 											<input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
 											<select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleSergeantWeapons">
@@ -101,7 +99,7 @@
 												{{/each}}
 											</select>
 										</td>
-										{{/forTwo}}
+										{{/each}}
 										<td>{{this.point_cost}}</td>
 										<td><input type="submit" name="updateSergeant" value="Update"
 												class="btn btn-primary"></td>
@@ -239,7 +237,7 @@
 										<td><input type="submit" name="removeSpaceMarine" value="-"
 												class="btn btn-primary"></td>
 										<td>{{this.id}}</td>
-										{{#forTwo this.weapons}}
+										{{#each this.weapons}}
 										<td>
 											<input type="hidden" name="currentWeapon{{@index}}" value="{{this.id}}">
 											<select class="custom-select mr-sm-2" name="newWeapon{{@index}}" id="possibleBasicWeapons">
@@ -252,9 +250,9 @@
 												{{/each}}
 											</select>
 										</td>
-										{{/forTwo}}
+										{{/each}}
 										<td>{{this.point_cost}}</td>
-										<td><input type="submit" name="updateMarine" value="Update"
+										<td><input type="submit" name="updateSpaceMarine" value="Update"
 												class="btn btn-primary"></td>
 									</form>
 								</tr>

@@ -53,7 +53,7 @@ function render_spacemarinesContext(res, next){
 		let sql = "SELECT equipments.id, equipments.name FROM spacemarines_equipments "+
 		"INNER JOIN spacemarines ON (spacemarines_equipments.spacemarineid = spacemarines.id ) " +
 		"INNER JOIN equipments ON (spacemarines_equipments.equipmentid = equipments.id ) " +
-		"WHERE spacemarines_equipments.spacemarineid = (?)";
+		"WHERE spacemarines_equipments.spacemarineid = (?) LIMIT 2";
 		return new Promise(function(resolve, reject){
 			queriesToComplete = 0;
 			completedQueries = 0;
