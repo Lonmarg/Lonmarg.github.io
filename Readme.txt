@@ -5,7 +5,7 @@ If you haven't run before in this location, you may have to run npm install
 
 In order to host the database on localhost, follow the directions here:
     https://www.cloudways.com/blog/setup-mysql-database-localhost/
-    they will use xampp to host locally
+    they will use xampp to host phpmyadmin locally to host the required database
 
 You will probably have to change the httpd.config file for Apache so that it runs
     the port listens on something other than 80 like 8080 or some such
